@@ -9,6 +9,7 @@
   "author": "Shane Vitarana",
   "license": "ISC",
   "dependencies": {
+    "bip39": "^2.5.0",
     "web3": "^1.0.0-beta.30"
   }
 }
