@@ -1,8 +1,13 @@
 {
   "name": "web3-service",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "index.js",
+  "private": true,
+  "engines": {
+    "node": "7.x"
+  },
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "description": "Node micro-service that talks to Ethereum to perform smart contract operations for artists and fans",
@@ -10,6 +15,12 @@
   "license": "UNLICENSED",
   "dependencies": {
     "bip39": "^2.5.0",
+    "dotenv": "^5.0.0",
+    "jsonwebtoken": "^8.1.1",
+    "koa": "^2.5.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-jwt": "^3.3.0",
+    "koa-router": "^7.4.0",
     "npm": "^5.6.0",
     "web3": "^1.0.0-beta2",
     "zeppelin-solidity": "1.6.0"
