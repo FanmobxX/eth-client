@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node app.js",
-    "test": "node_modules/mocha/bin/_mocha"
+    "test": "mocha --exit"
   },
   "description": "Node micro-service that talks to Ethereum to perform smart contract operations for artists and fans",
   "author": "Shane Vitarana",
