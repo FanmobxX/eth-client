@@ -1,12 +1,12 @@
 {
-  "name": "web3test",
+  "name": "web3-service",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Shane Vitarana",
-  "license": "ISC",
+  "license": "Fanmob",
   "dependencies": {
     "bip39": "^2.5.0",
     "npm": "^5.6.0",
@@ -19,12 +19,12 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/FanmobxX/web3test.git"
+    "url": "git+https://github.com:FanmobxX/web3-service.git"
   },
   "keywords": [],
   "bugs": {
-    "url": "https://github.com/FanmobxX/web3test/issues"
+    "url": "https://github.com/FanmobxX/web3-service/issues"
   },
-  "homepage": "https://github.com/FanmobxX/web3test#readme",
+  "homepage": "https://github.com/FanmobxX/web3-service#readme",
   "description": ""
 }
