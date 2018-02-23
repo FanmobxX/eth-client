@@ -2,6 +2,9 @@ const fs = require('fs');
 const solc = require('solc');
 const Web3 = require('web3');
 
+const ETHEREUM_HTTP_PROVIDER = 'http://127.0.0.1:7545';
+const FANMOB_ACCOUNT = '0x7d5FF30068bfEeA8dadD29A5a6eD6fABB96bEdfd';
+
 function artistContract(contractName, tokenName, tokenSymbol) {
   return `
     pragma solidity ^0.4.18;
@@ -44,7 +47,7 @@ const { bytecode } = output.contracts[contractIndex];
 const abi = JSON.parse(output.contracts[contractIndex].interface);
 
 // Connect to Ethereum
-const web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/6hHxPMt2sgN2OT6k0gLG'));
+const web3 = new Web3(new Web3.providers.HttpProvider(ETHEREUM_HTTP_PROVIDER));
 
 // Contract object
 const contract = new web3.eth.Contract(abi);
@@ -53,10 +56,9 @@ const contract = new web3.eth.Contract(abi);
 contract
   .deploy({
     data: bytecode,
-    arguments: [123, 'My String'],
   })
   .send({
-    from: '0x1234567890123456789012345678901234567891',
+    from: FANMOB_ACCOUNT,
     gas: 1500000,
     gasPrice: '30000000000000',
   }, (error, transactionHash) => {
@@ -79,3 +81,13 @@ contract
     // instance with the new contract address
     console.log(newContractInstance.options.address);
   });
+
+// Gas estimation
+// contract
+//   .deploy({
+//     data: '0x' + bytecode,
+//   })
+//   .estimateGas((err, gas) => {
+//     console.log(gas);
+//   });
+// 678376
