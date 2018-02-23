@@ -1,5 +1,6 @@
 const fs = require('fs');
 const solc = require('solc');
+const Web3 = require('web3');
 
 function artistContract(contractName, tokenName, tokenSymbol) {
   return `
@@ -25,10 +26,10 @@ function artistContract(contractName, tokenName, tokenSymbol) {
 }
 
 const contractName = 'TigaToken';
-const contract = artistContract(contractName, 'Tiga Coin', 'TIGA');
+const source = artistContract(contractName, 'Tiga Coin', 'TIGA');
 
 const input = {
-  'ArtistToken.sol': contract,
+  source,
   'SafeMath.sol': fs.readFileSync('./contracts/SafeMath.sol').toString(),
   'ERC20Basic.sol': fs.readFileSync('./contracts/ERC20Basic.sol').toString(),
   'ERC20.sol': fs.readFileSync('./contracts/ERC20.sol').toString(),
@@ -36,15 +37,45 @@ const input = {
   'StandardToken.sol': fs.readFileSync('./contracts/StandardToken.sol').toString(),
 };
 
+// Compile contract
 const output = solc.compile({ sources: input }, 1);
-// for (var n in output.contracts) {
-//   console.log(n + ': ' + output.contracts[n].bytecode);
-// }
-
-const contractIndex = 'ArtistToken.sol:TigaToken';
-
+const contractIndex = 'source:TigaToken';
 const { bytecode } = output.contracts[contractIndex];
-console.log(bytecode);
-
 const abi = JSON.parse(output.contracts[contractIndex].interface);
-console.log(abi);
+
+// Connect to Ethereum
+const web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/6hHxPMt2sgN2OT6k0gLG'));
+
+// Contract object
+const contract = new web3.eth.Contract(abi);
+
+// Deploy contract
+contract
+  .deploy({
+    data: bytecode,
+    arguments: [123, 'My String'],
+  })
+  .send({
+    from: '0x1234567890123456789012345678901234567891',
+    gas: 1500000,
+    gasPrice: '30000000000000',
+  }, (error, transactionHash) => {
+    console.log(transactionHash);
+  })
+  .on('error', (error) => {
+    console.log(error);
+  })
+  .on('transactionHash', (transactionHash) => {
+    console.log(transactionHash);
+  })
+  .on('receipt', (receipt) => {
+    // contains the new contract address
+    console.log(receipt.contractAddress);
+  })
+  .on('confirmation', (confirmationNumber, receipt) => {
+    console.log(receipt);
+  })
+  .then((newContractInstance) => {
+    // instance with the new contract address
+    console.log(newContractInstance.options.address);
+  });
