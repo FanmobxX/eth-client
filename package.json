@@ -1,7 +1,7 @@
 {
   "name": "web3-service",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "app.js",
   "private": true,
   "engines": {
     "node": "7.x"
@@ -10,12 +10,13 @@
     "start": "node app.js",
     "test": "mocha --exit"
   },
-  "description": "Node micro-service that talks to Ethereum to perform smart contract operations for artists and fans",
+  "description": "Node micro-service for Ethereum smart contract operations",
   "author": "Shane Vitarana",
-  "license": "UNLICENSED",
+  "license": "Copyright (c) 2018 Fanmob",
   "dependencies": {
     "bip39": "^2.5.0",
     "dotenv": "^5.0.0",
+    "ethereumjs-wallet": "^0.6.0",
     "jsonwebtoken": "^8.1.1",
     "koa": "^2.5.0",
     "koa-bodyparser": "^4.2.0",
