@@ -1,9 +1,8 @@
+require('dotenv').config();
+
 const fs = require('fs');
 const solc = require('solc');
 const Web3 = require('web3');
-
-const ETHEREUM_HTTP_PROVIDER = 'http://127.0.0.1:7545';
-const FANMOB_ACCOUNT = '0x7d5FF30068bfEeA8dadD29A5a6eD6fABB96bEdfd';
 
 function artistContract(contractName, tokenName, tokenSymbol) {
   return `
@@ -47,7 +46,7 @@ const { bytecode } = output.contracts[contractIndex];
 const abi = JSON.parse(output.contracts[contractIndex].interface);
 
 // Connect to Ethereum
-const web3 = new Web3(new Web3.providers.HttpProvider(ETHEREUM_HTTP_PROVIDER));
+const web3 = new Web3(new Web3.providers.HttpProvider(process.env.ETHEREUM_HTTP_PROVIDER));
 
 // Contract object
 const contract = new web3.eth.Contract(abi);
@@ -58,7 +57,7 @@ contract
     data: bytecode,
   })
   .send({
-    from: FANMOB_ACCOUNT,
+    from: process.env.FANMOB_ACCOUNT,
     gas: 1500000,
     gasPrice: '30000000000000',
   }, (error, transactionHash) => {
