@@ -27,7 +27,7 @@ function artistContract(contractName, tokenName, tokenSymbol) {
   `;
 }
 
-function deploy() {
+async function deploy() {
   const contractName = 'TigaToken';
   const source = artistContract(contractName, 'Tiga Coin', 'TIGA');
 
@@ -53,7 +53,7 @@ function deploy() {
   const contract = new web3.eth.Contract(abi);
 
   // Deploy contract
-  contract
+  const contractInstance = await contract
     .deploy({
       data: bytecode,
     })
@@ -63,24 +63,9 @@ function deploy() {
       gasPrice: '30000000000000',
     }, (error, transactionHash) => {
       console.log(transactionHash);
-    })
-    .on('error', (error) => {
-      console.log(error);
-    })
-    .on('transactionHash', (transactionHash) => {
-      console.log(transactionHash);
-    })
-    .on('receipt', (receipt) => {
-      // contains the new contract address
-      console.log(receipt.contractAddress);
-    })
-    .on('confirmation', (confirmationNumber, receipt) => {
-      console.log(receipt);
-    })
-    .then((newContractInstance) => {
-      // instance with the new contract address
-      console.log(newContractInstance.options.address);
     });
+
+  console.log(contractInstance.options.address);
 }
 
 // function estimateGas() {
