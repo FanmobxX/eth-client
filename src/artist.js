@@ -48,6 +48,7 @@ async function deploy() {
 
   // Connect to Ethereum
   const web3 = new Web3(new Web3.providers.HttpProvider(process.env.ETHEREUM_HTTP_PROVIDER));
+  console.log(web3.version);
 
   // Contract object
   const contract = new web3.eth.Contract(abi);
