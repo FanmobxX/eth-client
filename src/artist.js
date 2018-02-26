@@ -27,6 +27,21 @@ function artistContract(contractName, tokenName, tokenSymbol) {
   `;
 }
 
+async function estimateGas(contract, bytecode) {
+  let gasPrice;
+
+  await contract
+    .deploy({
+      data: `0x${bytecode}`,
+    })
+    .estimateGas((err, gas) => {
+      console.log(gas);
+      gasPrice = gas;
+    });
+
+  return gasPrice;
+}
+
 /**
  * Deploys contract
  * @return {string} Contract address
@@ -57,6 +72,10 @@ async function deploy() {
   // Contract object
   const contract = new web3.eth.Contract(abi);
 
+  // Estimate gas
+  const gasPrice = await estimateGas(contract, bytecode);
+  console.log(`Estimated gas price: ${gasPrice}`);
+
   // Deploy contract
   const contractInstance = await contract
     .deploy({
@@ -66,23 +85,12 @@ async function deploy() {
       from: process.env.FANMOB_ACCOUNT,
       gas: 5000000,
       // gasPrice: '30000000000000',
-      // gasPrice: '10000000',
+      gasPrice,
     }, (error, transactionHash) => {
       console.log(transactionHash);
     });
 
   return contractInstance.options.address;
 }
-
-// function estimateGas() {
-//   contract
-//     .deploy({
-//       data: '0x' + bytecode,
-//     })
-//     .estimateGas((err, gas) => {
-//       console.log(gas);
-//     });
-//   // 678376
-// }
 
 module.exports = deploy;
