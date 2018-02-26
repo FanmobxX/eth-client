@@ -46,7 +46,7 @@ async function estimateGas(contract, bytecode) {
  * Deploys contract
  * @return {string} Contract address
  */
-async function deploy() {
+function deploy() {
   const contractName = 'TigaToken';
   const source = artistContract(contractName, 'Tiga Coin', 'TIGA');
 
@@ -77,21 +77,38 @@ async function deploy() {
   // console.log(`Estimated gas price: ${gasPrice}`);
 
   // Deploy contract
-  const contractInstance = contract
+  contract
     .deploy({
       data: `0x${bytecode}`,
     })
     .send({
       from: process.env.FANMOB_ACCOUNT,
-      gas: 5000000,
+      // gas: 1500000,
       // gasPrice: '30000000000000',
-      gasPrice: '678376',
+      gas: 5000000,
+      gasPrice: '1078376',
     }, (error, transactionHash) => {
       if (error) {
         console.log(error);
         console.error(error);
       }
       console.log(transactionHash);
+    })
+    .on('error', (error) => {
+      console.log(error);
+    })
+    .on('transactionHash', (transactionHash) => {
+      console.log(transactionHash);
+    })
+    .on('receipt', (receipt) => {
+      // contains the new contract address
+      console.log(receipt.contractAddress);
+    })
+    .on('confirmation', (confirmationNumber, receipt) => {
+      console.log(receipt);
+    })
+    .then((newContractInstance) => {
+      console.log(newContractInstance.options.address);
     });
 
   // return contractInstance.options.address;

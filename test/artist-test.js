@@ -2,8 +2,8 @@ const assert = require('assert');
 const artistDeploy = require('../src/artist.js');
 
 describe('Artist', () => {
-  it('should deploy artist contract', async () => {
-    artistDeploy();
+  it('should deploy artist contract', (done) => {
+    artistDeploy(done);
     // const contractAddress = await artistDeploy();
     // console.log(contractAddress);
     // assert.equal(contractAddress.length, 42);
