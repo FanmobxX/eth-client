@@ -6,5 +6,5 @@ describe('Artist', () => {
     const contractAddress = await artistDeploy();
     console.log(contractAddress);
     assert.equal(contractAddress.length, 42);
-  }).timeout(10000);
+  }).timeout(200000);
 });
