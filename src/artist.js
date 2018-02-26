@@ -87,6 +87,10 @@ async function deploy() {
       // gasPrice: '30000000000000',
       gasPrice,
     }, (error, transactionHash) => {
+      if (error) {
+        console.log(error);
+        console.error(error);
+      }
       console.log(transactionHash);
     });
 
