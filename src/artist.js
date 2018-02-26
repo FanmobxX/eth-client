@@ -73,11 +73,11 @@ async function deploy() {
   const contract = new web3.eth.Contract(abi);
 
   // Estimate gas
-  const gasPrice = await estimateGas(contract, bytecode);
-  console.log(`Estimated gas price: ${gasPrice}`);
+  // const gasPrice = await estimateGas(contract, bytecode);
+  // console.log(`Estimated gas price: ${gasPrice}`);
 
   // Deploy contract
-  const contractInstance = await contract
+  const contractInstance = contract
     .deploy({
       data: `0x${bytecode}`,
     })
@@ -85,7 +85,7 @@ async function deploy() {
       from: process.env.FANMOB_ACCOUNT,
       gas: 5000000,
       // gasPrice: '30000000000000',
-      gasPrice,
+      gasPrice: '678376',
     }, (error, transactionHash) => {
       if (error) {
         console.log(error);
@@ -94,7 +94,7 @@ async function deploy() {
       console.log(transactionHash);
     });
 
-  return contractInstance.options.address;
+  // return contractInstance.options.address;
 }
 
 module.exports = deploy;
