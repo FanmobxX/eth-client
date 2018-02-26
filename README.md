@@ -19,11 +19,7 @@ https://fanmob-web3-staging.herokuapp.com/
 
 ### Parity Testnet (Kovan)
 
-Digital Ocean
-
-https://cloud.digitalocean.com/droplets/83713683
-
-Server: 198.199.66.129
+http://198.199.66.129:8180/#/
 
 Start Parity via Docker:
 
