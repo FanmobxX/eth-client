@@ -42,6 +42,12 @@ async function estimateGas(contract, bytecode) {
   return gasPrice;
 }
 
+function balance() {
+  // Connect to Ethereum
+  const web3 = new Web3(new Web3.providers.HttpProvider(process.env.ETHEREUM_HTTP_PROVIDER));
+  web3.eth.getAccounts(console.log);
+}
+
 /**
  * Deploys contract
  * @return {string} Contract address
@@ -114,4 +120,4 @@ function deploy() {
   // return contractInstance.options.address;
 }
 
-module.exports = deploy;
+module.exports = { balance, deploy };
