@@ -64,8 +64,9 @@ async function deploy() {
     })
     .send({
       from: process.env.FANMOB_ACCOUNT,
-      gas: 1500000,
-      gasPrice: '30000000000000',
+      gas: 5000000,
+      // gasPrice: '30000000000000',
+      // gasPrice: '10000000',
     }, (error, transactionHash) => {
       console.log(transactionHash);
     });
