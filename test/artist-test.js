@@ -1,7 +1,10 @@
+const assert = require('assert');
 const artistDeploy = require('../src/artist.js');
 
-describe('Artist', async () => {
+describe('Artist', () => {
   it('should deploy artist contract', async () => {
-    await artistDeploy();
-  }).timeout(5000);
+    const contractAddress = await artistDeploy();
+    console.log(contractAddress);
+    assert.equal(contractAddress.length, 42);
+  }).timeout(10000);
 });

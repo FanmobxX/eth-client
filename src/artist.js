@@ -27,6 +27,10 @@ function artistContract(contractName, tokenName, tokenSymbol) {
   `;
 }
 
+/**
+ * Deploys contract
+ * @return {string} Contract address
+ */
 async function deploy() {
   const contractName = 'TigaToken';
   const source = artistContract(contractName, 'Tiga Coin', 'TIGA');
@@ -66,7 +70,7 @@ async function deploy() {
       console.log(transactionHash);
     });
 
-  console.log(contractInstance.options.address);
+  return contractInstance.options.address;
 }
 
 // function estimateGas() {
