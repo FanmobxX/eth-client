@@ -60,7 +60,7 @@ async function deploy() {
   // Deploy contract
   const contractInstance = await contract
     .deploy({
-      data: bytecode,
+      data: `0x${bytecode}`,
     })
     .send({
       from: process.env.FANMOB_ACCOUNT,
