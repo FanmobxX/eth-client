@@ -105,13 +105,12 @@ async function deploy(compiledContract) {
   await contract
     .deploy({
       data: web3.utils.toHex(bytecode),
-      // data: `0x${bytecode}`,
       arguments: ['hello world'],
     })
     .send({
       from: accounts[0],
-      gas: web3.utils.toHex(1500000),
-      gasPrice: web3.utils.toHex(web3.utils.toWei('300', 'gwei')),
+      gas: web3.utils.toHex(6000000),
+      gasPrice: web3.utils.toHex(web3.utils.toWei('40', 'gwei')),
     }, (error, transactionHash) => {
       if (error) {
         console.log(error);
