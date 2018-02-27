@@ -98,9 +98,8 @@ function compile() {
 async function deploy(compiledContract) {
   const { bytecode } = compiledContract;
   const abi = JSON.parse(compiledContract.interface);
-
-  // Contract object
   const contract = new web3.eth.Contract(abi);
+  const accounts = await web3.eth.getAccounts();
 
   // Deploy contract
   await contract
@@ -109,7 +108,7 @@ async function deploy(compiledContract) {
       arguments: ['hello world'],
     })
     .send({
-      from: process.env.FANMOB_ACCOUNT,
+      from: accounts[0],
       gas: 1500000,
       gasPrice: web3.utils.toWei('20', 'gwei'),
     }, (error, transactionHash) => {
