@@ -1,13 +1,18 @@
 const assert = require('assert');
-const artistDeploy = require('../src/artist.js').deploy;
-const { balance } = require('../src/artist.js');
+const { compile, getBalance, deploy } = require('../src/artist.js');
 
 describe('Artist', () => {
   it('should check account balance', async () => {
-    const b = await balance();
-    console.log(b);
-    assert(b);
+    const balance = await getBalance();
+    console.log(`Current balance: ${balance} ETH`);
+    assert(balance > 0);
   });
+
+  it('should compile contract', (done) => {
+    const compiledContract = compile();
+    assert(compiledContract);
+    done();
+  }).timeout(20000);
 
   // it('should deploy artist contract', (done) => {
   //   artistDeploy(done);

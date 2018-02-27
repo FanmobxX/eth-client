@@ -4,6 +4,10 @@ const fs = require('fs');
 const solc = require('solc');
 const Web3 = require('web3');
 
+// Connect to Ethereum
+const web3 = new Web3(new Web3.providers.HttpProvider(process.env.ETHEREUM_HTTP_PROVIDER));
+console.log(web3.version);
+
 function artistContract(contractName, tokenName, tokenSymbol) {
   return `
     pragma solidity ^0.4.18;
@@ -42,18 +46,21 @@ async function estimateGas(contract, bytecode) {
   return gasPrice;
 }
 
-async function balance() {
-  // Connect to Ethereum
-  const web3 = new Web3(new Web3.providers.HttpProvider(process.env.ETHEREUM_HTTP_PROVIDER));
+/**
+ * Get account balance
+ * @return {string} Account balance in Ether
+ */
+async function getBalance() {
   const accounts = await web3.eth.getAccounts();
-  return web3.eth.getBalance(accounts[0]);
+  const balance = await web3.eth.getBalance(accounts[0]);
+  return web3.utils.fromWei(balance, 'ether');
 }
 
 /**
- * Deploys contract
- * @return {string} Contract address
+ * Compiles contract
+ * @return {[type]} Compiled contract
  */
-function deploy() {
+function compile() {
   const contractName = 'TigaToken';
   const source = artistContract(contractName, 'Tiga Coin', 'TIGA');
 
@@ -68,13 +75,17 @@ function deploy() {
 
   // Compile contract
   const output = solc.compile({ sources: input }, 1);
-  const contractIndex = 'source:TigaToken';
-  const { bytecode } = output.contracts[contractIndex];
-  const abi = JSON.parse(output.contracts[contractIndex].interface);
+  return output.contracts['source:TigaToken'];
+}
 
-  // Connect to Ethereum
-  const web3 = new Web3(new Web3.providers.HttpProvider(process.env.ETHEREUM_HTTP_PROVIDER));
-  console.log(web3.version);
+/**
+ * Deploys contract
+ * @param {contract} compiledContract The solc compiled contract
+ * @return {string} Contract address
+ */
+function deploy(compiledContract) {
+  const { bytecode } = compiledContract;
+  const abi = JSON.parse(compiledContract.interface);
 
   // Contract object
   const contract = new web3.eth.Contract(abi);
@@ -121,4 +132,9 @@ function deploy() {
   // return contractInstance.options.address;
 }
 
-module.exports = { balance, deploy };
+module.exports = {
+  getBalance,
+  compile,
+  deploy,
+  estimateGas,
+};
