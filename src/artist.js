@@ -104,7 +104,8 @@ async function deploy(compiledContract) {
   // Deploy contract
   await contract
     .deploy({
-      data: `0x${bytecode}`,
+      data: bytecode,
+      // data: `0x${bytecode}`,
       arguments: ['hello world'],
     })
     .send({
