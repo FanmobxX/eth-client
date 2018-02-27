@@ -42,10 +42,11 @@ async function estimateGas(contract, bytecode) {
   return gasPrice;
 }
 
-function balance() {
+async function balance() {
   // Connect to Ethereum
   const web3 = new Web3(new Web3.providers.HttpProvider(process.env.ETHEREUM_HTTP_PROVIDER));
-  web3.eth.getAccounts(console.log);
+  const accounts = await web3.eth.getAccounts();
+  return web3.eth.getBalance(accounts[0]);
 }
 
 /**

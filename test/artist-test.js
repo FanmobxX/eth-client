@@ -3,8 +3,10 @@ const artistDeploy = require('../src/artist.js').deploy;
 const { balance } = require('../src/artist.js');
 
 describe('Artist', () => {
-  it('should check account balance', (done) => {
-    balance(done);
+  it('should check account balance', async () => {
+    const b = await balance();
+    console.log(b);
+    assert(b);
   });
 
   // it('should deploy artist contract', (done) => {
