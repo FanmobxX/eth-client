@@ -109,8 +109,8 @@ async function deploy(compiledContract) {
     })
     .send({
       from: accounts[0],
-      gas: 1500000,
-      gasPrice: web3.utils.toWei('300', 'gwei'),
+      gas: web3.utils.toHex(1500000),
+      gasPrice: web3.utils.toHex(web3.utils.toWei('300', 'gwei')),
     }, (error, transactionHash) => {
       if (error) {
         console.log(error);
