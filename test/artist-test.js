@@ -1,5 +1,10 @@
 const assert = require('assert');
-const { compile, estimateGas, deploy, getBalance } = require('../src/artist.js');
+const {
+  compile,
+  estimateGas,
+  deploy,
+  getBalance,
+} = require('../src/artist.js');
 const Web3 = require('web3');
 
 // Connect to Ethereum
