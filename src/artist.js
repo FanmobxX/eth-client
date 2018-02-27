@@ -97,7 +97,7 @@ async function deploy(compiledContract) {
     .send({
       from: process.env.FANMOB_ACCOUNT,
       gas: 1500000,
-      gasPrice: web3.utils.toWei(20, 'gwei'),
+      gasPrice: web3.utils.toWei('20', 'gwei'),
     }, (error, transactionHash) => {
       if (error) {
         console.log(error);
