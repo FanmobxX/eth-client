@@ -43,5 +43,5 @@ describe('Artist', () => {
     await deploy(compiledContract);
     // console.log(contractAddress);
     // assert.equal(contractAddress.length, 42);
-  }).timeout(20000);
+  }).timeout(200000);
 });
