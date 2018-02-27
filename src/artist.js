@@ -104,7 +104,7 @@ async function deploy(compiledContract) {
   // Deploy contract
   await contract
     .deploy({
-      data: bytecode,
+      data: web3.utils.toHex(bytecode),
       // data: `0x${bytecode}`,
       arguments: ['hello world'],
     })
