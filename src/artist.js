@@ -37,6 +37,7 @@ async function estimateGas(contract, bytecode) {
   await contract
     .deploy({
       data: `0x${bytecode}`,
+      arguments: ['hello world'],
     })
     .estimateGas((err, gas) => {
       estimatedGas = gas;
@@ -59,22 +60,34 @@ async function getBalance() {
  * Compiles contract
  * @return {[type]} Compiled contract
  */
-function compile() {
-  const contractName = 'TigaToken';
-  const source = artistContract(contractName, 'Tiga Coin', 'TIGA');
+// function compile() {
+//   const contractName = 'TigaToken';
+//   const source = artistContract(contractName, 'Tiga Coin', 'TIGA');
 
+//   const input = {
+//     source,
+//     'SafeMath.sol': fs.readFileSync('./contracts/SafeMath.sol').toString(),
+//     'ERC20Basic.sol': fs.readFileSync('./contracts/ERC20Basic.sol').toString(),
+//     'ERC20.sol': fs.readFileSync('./contracts/ERC20.sol').toString(),
+//     'BasicToken.sol': fs.readFileSync('./contracts/BasicToken.sol').toString(),
+//     'StandardToken.sol': fs.readFileSync('./contracts/StandardToken.sol').toString(),
+//   };
+
+//   // Compile contract
+//   const output = solc.compile({ sources: input }, 1);
+//   return output.contracts['source:TigaToken'];
+// }
+
+function compile() {
   const input = {
-    source,
-    'SafeMath.sol': fs.readFileSync('./contracts/SafeMath.sol').toString(),
-    'ERC20Basic.sol': fs.readFileSync('./contracts/ERC20Basic.sol').toString(),
-    'ERC20.sol': fs.readFileSync('./contracts/ERC20.sol').toString(),
-    'BasicToken.sol': fs.readFileSync('./contracts/BasicToken.sol').toString(),
-    'StandardToken.sol': fs.readFileSync('./contracts/StandardToken.sol').toString(),
+    'Greeter.sol': fs.readFileSync('./contracts/Greeter.sol').toString(),
   };
 
   // Compile contract
   const output = solc.compile({ sources: input }, 1);
-  return output.contracts['source:TigaToken'];
+  const c = output.contracts['Greeter.sol:greeter'];
+  // console.log(output.contracts);
+  return c;
 }
 
 /**
@@ -93,6 +106,7 @@ async function deploy(compiledContract) {
   await contract
     .deploy({
       data: `0x${bytecode}`,
+      arguments: ['hello world'],
     })
     .send({
       from: process.env.FANMOB_ACCOUNT,
