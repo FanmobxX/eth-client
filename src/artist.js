@@ -39,7 +39,6 @@ async function estimateGas(contract, bytecode) {
       data: `0x${bytecode}`,
     })
     .estimateGas((err, gas) => {
-      console.log(gas);
       gasPrice = gas;
     });
 
