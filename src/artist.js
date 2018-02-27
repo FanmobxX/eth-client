@@ -32,17 +32,17 @@ function artistContract(contractName, tokenName, tokenSymbol) {
 }
 
 async function estimateGas(contract, bytecode) {
-  let gasPrice;
+  let estimatedGas;
 
   await contract
     .deploy({
       data: `0x${bytecode}`,
     })
     .estimateGas((err, gas) => {
-      gasPrice = gas;
+      estimatedGas = gas;
     });
 
-  return gasPrice;
+  return estimatedGas;
 }
 
 /**
@@ -82,28 +82,22 @@ function compile() {
  * @param {contract} compiledContract The solc compiled contract
  * @return {string} Contract address
  */
-function deploy(compiledContract) {
+async function deploy(compiledContract) {
   const { bytecode } = compiledContract;
   const abi = JSON.parse(compiledContract.interface);
 
   // Contract object
   const contract = new web3.eth.Contract(abi);
 
-  // Estimate gas
-  // const gasPrice = await estimateGas(contract, bytecode);
-  // console.log(`Estimated gas price: ${gasPrice}`);
-
   // Deploy contract
-  contract
+  await contract
     .deploy({
       data: `0x${bytecode}`,
     })
     .send({
       from: process.env.FANMOB_ACCOUNT,
-      // gas: 1500000,
-      // gasPrice: '30000000000000',
-      gas: 5000000,
-      gasPrice: '1078376',
+      gas: 1500000,
+      gasPrice: web3.utils.toWei(20, 'gwei'),
     }, (error, transactionHash) => {
       if (error) {
         console.log(error);

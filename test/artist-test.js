@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { compile, estimateGas, getBalance } = require('../src/artist.js');
+const { compile, estimateGas, deploy, getBalance } = require('../src/artist.js');
 const Web3 = require('web3');
 
 // Connect to Ethereum
@@ -32,10 +32,11 @@ describe('Artist', () => {
     console.log(`Estimated gas: ${gas}`);
     assert(gas > 0);
   });
-  // it('should deploy artist contract', (done) => {
-  //   artistDeploy(done);
-  //   // const contractAddress = await artistDeploy();
-  //   // console.log(contractAddress);
-  //   // assert.equal(contractAddress.length, 42);
-  // }).timeout(200000);
+
+  it('should deploy artist contract', async () => {
+    // deploy(compiledContract, done);
+    await deploy(compiledContract);
+    // console.log(contractAddress);
+    // assert.equal(contractAddress.length, 42);
+  }).timeout(200000);
 });
