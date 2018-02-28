@@ -37,7 +37,7 @@ async function estimateGas(contract, bytecode) {
   await contract
     .deploy({
       data: `0x${bytecode}`,
-      arguments: ['hello world'],
+      // arguments: ['hello world'],
     })
     .estimateGas((err, gas) => {
       estimatedGas = gas;
@@ -60,35 +60,35 @@ async function getBalance() {
  * Compiles contract
  * @return {[type]} Compiled contract
  */
-// function compile() {
-//   const contractName = 'TigaToken';
-//   const source = artistContract(contractName, 'Tiga Coin', 'TIGA');
-
-//   const input = {
-//     source,
-//     'SafeMath.sol': fs.readFileSync('./contracts/SafeMath.sol').toString(),
-//     'ERC20Basic.sol': fs.readFileSync('./contracts/ERC20Basic.sol').toString(),
-//     'ERC20.sol': fs.readFileSync('./contracts/ERC20.sol').toString(),
-//     'BasicToken.sol': fs.readFileSync('./contracts/BasicToken.sol').toString(),
-//     'StandardToken.sol': fs.readFileSync('./contracts/StandardToken.sol').toString(),
-//   };
-
-//   // Compile contract
-//   const output = solc.compile({ sources: input }, 1);
-//   return output.contracts['source:TigaToken'];
-// }
-
 function compile() {
+  const contractName = 'TigaToken';
+  const source = artistContract(contractName, 'Tiga Coin', 'TIGA');
+
   const input = {
-    'Greeter.sol': fs.readFileSync('./contracts/Greeter.sol').toString(),
+    source,
+    'SafeMath.sol': fs.readFileSync('./contracts/SafeMath.sol').toString(),
+    'ERC20Basic.sol': fs.readFileSync('./contracts/ERC20Basic.sol').toString(),
+    'ERC20.sol': fs.readFileSync('./contracts/ERC20.sol').toString(),
+    'BasicToken.sol': fs.readFileSync('./contracts/BasicToken.sol').toString(),
+    'StandardToken.sol': fs.readFileSync('./contracts/StandardToken.sol').toString(),
   };
 
   // Compile contract
   const output = solc.compile({ sources: input }, 1);
-  const c = output.contracts['Greeter.sol:greeter'];
-  // console.log(output.contracts);
-  return c;
+  return output.contracts['source:TigaToken'];
 }
+
+// function compile() {
+//   const input = {
+//     'Greeter.sol': fs.readFileSync('./contracts/Greeter.sol').toString(),
+//   };
+
+//   // Compile contract
+//   const output = solc.compile({ sources: input }, 1);
+//   const c = output.contracts['Greeter.sol:greeter'];
+//   // console.log(output.contracts);
+//   return c;
+// }
 
 /**
  * Deploys contract
@@ -100,16 +100,17 @@ async function deploy(compiledContract) {
   const abi = JSON.parse(compiledContract.interface);
   const contract = new web3.eth.Contract(abi);
   const accounts = await web3.eth.getAccounts();
+  console.log(accounts);
 
   // Deploy contract
   await contract
     .deploy({
       data: web3.utils.toHex(bytecode),
-      arguments: ['hello world'],
+      // arguments: ['hello world'],
     })
     .send({
       from: accounts[0],
-      gas: web3.utils.toHex(334000),
+      gas: web3.utils.toHex(1500000),
       gasPrice: web3.utils.toHex(web3.utils.toWei('20', 'gwei')),
     }, (error, transactionHash) => {
       if (error) {
