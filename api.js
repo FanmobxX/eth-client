@@ -1,3 +1,4 @@
+const ArtistContract = require('./src/artist');
 const Router = require('koa-router');
 
 const router = new Router({
@@ -7,15 +8,21 @@ const router = new Router({
 /**
  * Create and deploy artist token contract.
  *
- * POST /artists/{artistId}/token
+ * POST /artists/token
  *
- * @param {string} artistId - The id of the artist in the db.
  * @param {string} tokenName - The name of the token, i.e: Tiga Coin.
  * @param {string} symbol - The symbol of the token, i.e: TIGA.
  */
-router.post('/token', async (ctx) => {
-  // const artistId = ctx.params.id;
-  ctx.status = 200;
+router.post('/artist/token', async (ctx) => {
+  const { tokenName, tokenSymbol } = ctx.request.body;
+  const contractName = tokenName.replace(/\s/g, '');
+  try {
+    const artistContract = new ArtistContract(contractName, tokenName, tokenSymbol);
+    artistContract.deploy();
+    ctx.status = 200;
+  } catch (err) {
+    ctx.status = 500;
+  }
 });
 
 /**

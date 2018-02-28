@@ -6,8 +6,12 @@ describe('API', async () => {
   describe('/api/v1/token', async () => {
     describe('POST', async () => {
       it('should return 200', async () => {
+        const tokenName = 'Tiga Coin';
+        const tokenSymbol = 'TIGA';
+        const data = { tokenName, tokenSymbol };
         await request
-          .post('/api/v1/token')
+          .post('/api/v1/artist/token')
+          .send(data)
           .expect(200);
       });
     });

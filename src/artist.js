@@ -91,7 +91,8 @@ class ArtistContract {
     const abi = JSON.parse(this.compiledContract.interface);
     const contract = new web3.eth.Contract(abi);
     const accounts = await web3.eth.getAccounts();
-    console.log(accounts);
+    // console.log(accounts);
+    // console.log(bytecode);
 
     // Deploy contract
     contract
