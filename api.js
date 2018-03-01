@@ -26,11 +26,14 @@ router.post('/artists/token', async (ctx) => {
 });
 
 /**
- * Create HD Wallet.
+ * Create user account.
  *
- * POST /wallet
+ * POST /account/:id
+ *
+ * @param {string} id User's id on postgres server
  */
-router.post('/users/:id/wallet', async (ctx) => {
+router.post('/account/:id', async (ctx) => {
+  // const { id } = ctx.params;
   ctx.status = 200;
 });
 
