@@ -23,7 +23,7 @@ contract Airdrop is Ownable {
   function multisend(
     address tokenAddr, 
     address[] dests, 
-    uint256[] values) onlyOwner returns (uint256) {
+    uint256[] values) public onlyOwner returns (uint256) {
 
       uint256 i = 0;
       while (i < dests.length) {
