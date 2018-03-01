@@ -59,11 +59,11 @@ class ArtistContract {
   static compile(source, contractName) {
     const input = {
       source,
-      'SafeMath.sol': fs.readFileSync('./contracts/SafeMath.sol').toString(),
-      'ERC20Basic.sol': fs.readFileSync('./contracts/ERC20Basic.sol').toString(),
-      'ERC20.sol': fs.readFileSync('./contracts/ERC20.sol').toString(),
-      'BasicToken.sol': fs.readFileSync('./contracts/BasicToken.sol').toString(),
-      'StandardToken.sol': fs.readFileSync('./contracts/StandardToken.sol').toString(),
+      'SafeMath.sol': fs.readFileSync('./src/contracts/SafeMath.sol').toString(),
+      'ERC20Basic.sol': fs.readFileSync('./src/contracts/ERC20Basic.sol').toString(),
+      'ERC20.sol': fs.readFileSync('./src/contracts/ERC20.sol').toString(),
+      'BasicToken.sol': fs.readFileSync('./src/contracts/BasicToken.sol').toString(),
+      'StandardToken.sol': fs.readFileSync('./src/contracts/StandardToken.sol').toString(),
     };
 
     // Compile contract
