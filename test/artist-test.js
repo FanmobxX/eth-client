@@ -19,7 +19,7 @@ describe('ArtistContract', () => {
   });
 
   it('should compile contract', (done) => {
-    assert(artistContract.compiledContract);
+    assert(artistContract.compiledContract, contractName);
     done();
   }).timeout(20000);
 

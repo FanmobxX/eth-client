@@ -15,7 +15,7 @@ class ArtistContract {
     }
 
     const source = ArtistContract.template(contractName, tokenName, tokenSymbol);
-    this.compiledContract = ArtistContract.compile(source);
+    this.compiledContract = ArtistContract.compile(source, contractName);
   }
 
   static template(contractName, tokenName, tokenSymbol) {
@@ -56,7 +56,7 @@ class ArtistContract {
    * Compiles contract
    * @return {[type]} Compiled contract
    */
-  static compile(source) {
+  static compile(source, contractName) {
     const input = {
       source,
       'SafeMath.sol': fs.readFileSync('./contracts/SafeMath.sol').toString(),
@@ -68,7 +68,7 @@ class ArtistContract {
 
     // Compile contract
     const output = solc.compile({ sources: input }, 1);
-    return output.contracts['source:TigaToken'];
+    return output.contracts[`source:${contractName}`];
   }
 
   /**
