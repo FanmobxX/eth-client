@@ -13,7 +13,7 @@ const router = new Router({
  * @param {string} tokenName - The name of the token, i.e: Tiga Coin.
  * @param {string} symbol - The symbol of the token, i.e: TIGA.
  */
-router.post('/artist/token', async (ctx) => {
+router.post('/artists/token', async (ctx) => {
   const { tokenName, tokenSymbol } = ctx.request.body;
   const contractName = tokenName.replace(/\s/g, '');
   try {

@@ -10,7 +10,7 @@ describe('API', async () => {
         const tokenSymbol = 'TIGA';
         const data = { tokenName, tokenSymbol };
         await request
-          .post('/api/v1/artist/token')
+          .post('/api/v1/artists/token')
           .send(data)
           .expect(200);
       }).timeout(20000);
