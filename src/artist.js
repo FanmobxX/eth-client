@@ -54,7 +54,7 @@ class ArtistContract {
 
   /**
    * Compiles contract
-   * @return {[type]} Compiled contract
+   * @return {solc.Contract} Compiled contract
    */
   static compile(source, contractName) {
     const input = {
@@ -84,7 +84,6 @@ class ArtistContract {
   /**
    * Deploys contract
    * @param {contract} compiledContract The solc compiled contract
-   * @return {string} Contract address
    */
   async deploy() {
     const { bytecode } = this.compiledContract;
