@@ -13,7 +13,7 @@ describe('API', async () => {
           .post('/api/v1/artist/token')
           .send(data)
           .expect(200);
-      });
+      }).timeout(20000);
     });
   });
 });
