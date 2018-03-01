@@ -4,12 +4,9 @@ const { Schema } = mongoose;
 
 const AccountSchema = new Schema({
   userId: {
-    type: String,
+    type: Number,
     required: true,
     unique: true,
-    minlength: 2,
-    maxlength: 20,
-    trim: true,
   },
   address: {
     type: String,
