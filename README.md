@@ -1,5 +1,7 @@
 # Fanmob Ethereum Client
 
+Manages all Ethereum related operations including storing, encrypting and decyrpting accounts, signing transctions, and deploying smart contracts. It encapsulates a Parity node for all web3 operations.
+
 ## API 
 ### `/api/v1`
 
