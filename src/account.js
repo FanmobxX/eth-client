@@ -28,25 +28,24 @@ class AccountController {
 
   /**
    * Generates a keystore and saves the user in Mongo DB
-   * @return {Promise} Promise for saving the user in Mongo
+   * @return {Promise} Promise with user instance
    */
   async perform() {
     const keystore = AccountController.create();
-    await this.save(keystore);
+    return this.save(keystore);
   }
 
   /**
    * Save the user's private key in Mongo DB
    * @param  {Object} keystore Web3 keystore v3 JSOM object
-   * @return {Promise} Promise saving the user account
+   * @return {Promise} Promise with user instance
    */
   async save(keystore) {
-    const account = new Account({
+    return Account.create({
       userId: this.userId,
       address: keystore.address,
       keystore,
     });
-    await account.save();
   }
 
   // static find(id) {

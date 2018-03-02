@@ -7,7 +7,6 @@ describe('API', async () => {
     describe('POST', async () => {
       it('should return 200', async () => {
         const id = Math.floor(Math.random() * 100);
-        const data = { id };
         await request
           .post(`/api/v1/accounts/${id}`)
           .expect(200);

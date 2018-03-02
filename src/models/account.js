@@ -22,6 +22,7 @@ const AccountSchema = new mongoose.Schema({
     type: String,
     required: false,
     unique: true,
+    sparse: true,
     minlength: 40,
     maxlength: 40,
     trim: true,
