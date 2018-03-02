@@ -6,6 +6,7 @@
 
 ## Running
 
+`npm run mongo`
 `npm start`
 
 ## Testing
@@ -19,7 +20,7 @@ https://fanmob-web3-staging.herokuapp.com/
 
 ### Parity Testnet (Kovan)
 
-http://198.199.66.129:8180/#/
+http://198.199.66.129:8180
 
 Start Parity via Docker:
 
