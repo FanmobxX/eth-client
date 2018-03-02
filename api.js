@@ -44,6 +44,9 @@ router.post('/accounts/:id', async (ctx) => {
  * Create fandrop
  *
  * POST /artist/{artistId}/fandrop
+ *
+ * @param {Array} userIds List of usersIds to airdrop to
+ * @param {Number} value Number of tokens per user to airdrop
  */
 router.post('/artists/:id/fandrop', async (ctx) => {
   ctx.status = 200;
