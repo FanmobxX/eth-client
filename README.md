@@ -2,12 +2,19 @@
 
 ## Installation
 
+`npm install -g truffle`
+
 `npm install`
 
 ## Running
 
 `npm run mongo`
+
 `npm start`
+
+## Deploying Contracts
+
+`truffle migrate --network [develop|test]`
 
 ## Testing
 
