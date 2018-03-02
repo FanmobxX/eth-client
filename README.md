@@ -1,9 +1,9 @@
 # web3-service
 
 ## API 
-### `/api/v1`
+#### `/api/v1`
 
-1. Create an artist/fan:
+##### 1. Create an artist/fan:
 
 `POST /accounts/:id`
 
@@ -22,7 +22,7 @@ Auth header:
 Authorization: Bearer [accessToken]
 ```
 
-2. Create a coin/token for an artist:
+##### 2. Create a coin/token for an artist:
 
 `POST /artists/token`
 
@@ -36,7 +36,7 @@ Request body:
 
 Returns 200.
 
-3. Create fandrop:
+##### 3. Create fandrop:
 
 `POST /artists/fandrop`
 
