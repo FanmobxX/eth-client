@@ -3,11 +3,11 @@ const jwt = require('jsonwebtoken');
 const request = require('supertest').agent(app.listen());
 
 describe('API', async () => {
-  const accessToken = jwt.sign({ id: 5 }, process.env.JWT_SECRET);
+  const id = Math.floor(Math.random() * 100);
+  const accessToken = jwt.sign({ id }, process.env.JWT_SECRET);
   describe('/accounts/:id', async () => {
     describe('POST', async () => {
       it('should return 200', async () => {
-        const id = Math.floor(Math.random() * 100);
         await request
           .post(`/api/v1/accounts/${id}`)
           .expect(200);

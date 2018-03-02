@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+const Account = require('./models/account');
 const fs = require('fs');
 const solc = require('solc');
 const Web3 = require('web3');
@@ -9,13 +10,14 @@ const web3 = new Web3(new Web3.providers.HttpProvider(process.env.ETHEREUM_HTTP_
 console.log(web3.version);
 
 class ArtistContract {
-  constructor(contractName, tokenName, tokenSymbol) {
+  constructor(contractName, tokenName, tokenSymbol, user) {
     if ((contractName == null) || (tokenName == null) || (tokenSymbol == null)) {
       throw new Error('A required parameter is missing');
     }
 
     const source = ArtistContract.template(contractName, tokenName, tokenSymbol);
     this.compiledContract = ArtistContract.compile(source, contractName);
+    this.userId = user.id;
   }
 
   static template(contractName, tokenName, tokenSymbol) {
@@ -123,8 +125,11 @@ class ArtistContract {
       .on('confirmation', (confirmationNumber, receipt) => {
         console.log(receipt);
       })
-      .then((newContractInstance) => {
+      .then(async (newContractInstance) => {
         console.log(newContractInstance.options.address);
+        const account = await Account.findOne({ userId: this.userId });
+        account.tokenContractAddress = newContractInstance.options.address;
+        await account.save();
       });
   }
 

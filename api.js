@@ -35,13 +35,14 @@ router.post('/accounts/:id', async (ctx) => {
  * @param {string} symbol - The symbol of the token, i.e: TIGA.
  */
 router.post('/artists/token', auth, async (ctx) => {
-  // const { user } = ctx.state;
+  const { user } = ctx.state;
   const { tokenName, tokenSymbol } = ctx.request.body;
   const contractName = tokenName.replace(/\s/g, '');
   const artistContract = new ArtistContract(
     contractName,
     tokenName,
     tokenSymbol,
+    user,
   );
   artistContract.deploy();
   ctx.status = 200;

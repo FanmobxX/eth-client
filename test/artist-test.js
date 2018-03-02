@@ -10,7 +10,12 @@ describe('ArtistContract', () => {
   const contractName = 'TigaToken';
   const tokenName = 'Tiga Coin';
   const tokenSymbol = 'TIGA';
-  const artistContract = new ArtistContract(contractName, tokenName, tokenSymbol);
+  const artistContract = new ArtistContract(
+    contractName,
+    tokenName,
+    tokenSymbol,
+    { id: 5, iat: 'wut' },
+  );
 
   it('should check account balance', async () => {
     const balance = await ArtistContract.getBalance();
