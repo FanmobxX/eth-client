@@ -2,6 +2,8 @@
 
 Manages all Ethereum related operations including storing, encrypting and decyrpting accounts, signing transctions, and deploying smart contracts. It encapsulates a Parity node for all web3 operations.
 
+Authentication is based on [JSON Web Tokens](https://jwt.io).
+
 ## API 
 ### `/api/v1`
 

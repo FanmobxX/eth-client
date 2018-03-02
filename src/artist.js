@@ -7,7 +7,6 @@ const Web3 = require('web3');
 
 // Connect to Ethereum
 const web3 = new Web3(new Web3.providers.HttpProvider(process.env.ETHEREUM_HTTP_PROVIDER));
-console.log(web3.version);
 
 class ArtistContract {
   constructor(contractName, tokenName, tokenSymbol, user) {
@@ -24,35 +23,20 @@ class ArtistContract {
     return `
       pragma solidity ^0.4.18;
 
-      import './StandardToken.sol';
+      import "./CappedToken.sol";
 
-      contract ${contractName} is StandardToken {
+      contract ${contractName} is CappedToken {
 
         string public constant name = "${tokenName}";
         string public constant symbol = "${tokenSymbol}";
         uint8 public constant decimals = 18;
 
-        uint256 public constant INITIAL_SUPPLY = 10000000 * (10 ** uint256(decimals));
+        uint256 public cap = 10000000 * (10 ** uint256(decimals));
 
-        function ${contractName}() public {
-          totalSupply_ = INITIAL_SUPPLY;
-          balances[msg.sender] = INITIAL_SUPPLY;
-          Transfer(0x0, msg.sender, INITIAL_SUPPLY);
-        }
+        function ${contractName}() CappedToken(cap) public { }
       }
     `;
   }
-
-  // static compile() {
-  //   const input = {
-  //     'Greeter.sol': fs.readFileSync('./contracts/Greeter.sol').toString(),
-  //   };
-
-  //   // Compile contract
-  //   const output = solc.compile({ sources: input }, 1);
-  //   const c = output.contracts['Greeter.sol:greeter'];
-  //   return c;
-  // }
 
   /**
    * Compiles contract
@@ -61,10 +45,13 @@ class ArtistContract {
   static compile(source, contractName) {
     const input = {
       source,
-      'SafeMath.sol': fs.readFileSync('./src/contracts/SafeMath.sol').toString(),
-      'ERC20Basic.sol': fs.readFileSync('./src/contracts/ERC20Basic.sol').toString(),
-      'ERC20.sol': fs.readFileSync('./src/contracts/ERC20.sol').toString(),
       'BasicToken.sol': fs.readFileSync('./src/contracts/BasicToken.sol').toString(),
+      'CappedToken.sol': fs.readFileSync('./src/contracts/CappedToken.sol').toString(),
+      'ERC20.sol': fs.readFileSync('./src/contracts/ERC20.sol').toString(),
+      'ERC20Basic.sol': fs.readFileSync('./src/contracts/ERC20Basic.sol').toString(),
+      'MintableToken.sol': fs.readFileSync('./src/contracts/MintableToken.sol').toString(),
+      'Ownable.sol': fs.readFileSync('./src/contracts/Ownable.sol').toString(),
+      'SafeMath.sol': fs.readFileSync('./src/contracts/SafeMath.sol').toString(),
       'StandardToken.sol': fs.readFileSync('./src/contracts/StandardToken.sol').toString(),
     };
 

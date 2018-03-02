@@ -5,7 +5,7 @@ module.exports = {
       port: 7545,
       network_id: '*',
     },
-    test: {
+    kovan: {
       host: '198.199.66.129',
       port: 8545,
       network_id: '*',
