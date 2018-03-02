@@ -1,3 +1,4 @@
+const AccountController = require('./src/account');
 const ArtistContract = require('./src/artist');
 const Router = require('koa-router');
 
@@ -28,12 +29,14 @@ router.post('/artists/token', async (ctx) => {
 /**
  * Create user account.
  *
- * POST /account/:id
+ * POST /accounts/:id
  *
  * @param {string} id User's id on postgres server
  */
-router.post('/account/:id', async (ctx) => {
-  // const { id } = ctx.params;
+router.post('/accounts/:id', async (ctx) => {
+  const { id } = ctx.params;
+  const account = new AccountController(id);
+  await account.perform();
   ctx.status = 200;
 });
 

@@ -2,7 +2,7 @@ const assert = require('assert');
 const AccountController = require('../src/account');
 
 describe('AccountController', () => {
-  const userId = 5;
+  const userId = Math.floor(Math.random() * 100);
   const account = new AccountController(userId);
 
   describe('perform', () => {
