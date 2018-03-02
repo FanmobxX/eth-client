@@ -16,7 +16,10 @@ const AccountSchema = new Schema({
     maxlength: 40,
     trim: true,
   },
-  keystore: Object,
+  keystore: {
+    type: Object,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('Account', AccountSchema);

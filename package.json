@@ -7,8 +7,9 @@
     "node": "8.x"
   },
   "scripts": {
+    "mongo": "mongod --config /usr/local/etc/mongod.conf",
     "start": "node app.js",
-    "test": "mocha --exit"
+    "test": "mocha --recursive --exit"
   },
   "description": "Node micro-service for Ethereum smart contract operations",
   "author": "Shane Vitarana",
