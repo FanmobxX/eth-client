@@ -1,5 +1,54 @@
 # web3-service
 
+## API
+
+1. Create an artist/fan:
+
+`POST /accounts/:id`
+
+Response:
+
+```
+{
+    accessToken: alkdfj
+}
+```
+
+This is the access token for the API, and must be used for all subsequent calls. It is used in the auth header of each request:
+
+Auth header:
+```
+Authorization: Bearer [accessToken]
+```
+
+2. Create a coin/token for an artist:
+
+`POST /artists/token`
+
+Request body:
+```
+{
+    tokenName: "Tiga Coin",
+    tokenSymbol: "TIGA",
+}
+```
+
+Returns 200.
+
+3. Create fandrop:
+
+`POST /artists/fandrop`
+
+Request body:
+```
+{
+    userIds: [0xaddress1, 0xaddress3, ...], // destination addresses
+    value: [100], // num tokens
+}
+```
+
+Returns 200.
+
 ## Installation
 
 `npm install -g truffle`

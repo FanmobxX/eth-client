@@ -1,11 +1,13 @@
 const AccountController = require('./src/account');
 const ArtistContract = require('./src/artist');
 const jwt = require('jsonwebtoken');
+const koaJwt = require('koa-jwt');
 const Router = require('koa-router');
 
-const router = new Router({
-  prefix: '/api/v1',
-});
+// middleware to validate JWT token
+const auth = koaJwt({ secret: process.env.JWT_SECRET });
+
+const router = new Router({ prefix: '/api/v1' });
 
 /**
  * Create user account.
@@ -20,7 +22,7 @@ router.post('/accounts/:id', async (ctx) => {
   const controller = new AccountController(id);
   const account = await controller.perform();
   ctx.body = {
-    accessToken: jwt.sign({ accountId: account.id }, process.env.JWT_SECRET),
+    accessToken: jwt.sign({ id: account.id }, process.env.JWT_SECRET),
   };
 });
 
@@ -32,7 +34,7 @@ router.post('/accounts/:id', async (ctx) => {
  * @param {string} tokenName - The name of the token, i.e: Tiga Coin.
  * @param {string} symbol - The symbol of the token, i.e: TIGA.
  */
-router.post('/artists/token', async (ctx) => {
+router.post('/artists/token', auth, async (ctx) => {
   const { tokenName, tokenSymbol } = ctx.request.body;
   const contractName = tokenName.replace(/\s/g, '');
   try {
@@ -51,12 +53,12 @@ router.post('/artists/token', async (ctx) => {
 /**
  * Create fandrop
  *
- * POST /artists/{artistId}/fandrop
+ * POST /artists/fandrop
  *
  * @param {Array} userIds List of usersIds to airdrop to
  * @param {Number} value Number of tokens per user to airdrop
  */
-router.post('/artists/fandrop', async (ctx) => {
+router.post('/artists/fandrop', auth, async (ctx) => {
   ctx.status = 200;
 });
 
