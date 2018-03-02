@@ -1,6 +1,7 @@
 # web3-service
 
-## API
+## API 
+### `/api/v1`
 
 1. Create an artist/fan:
 
