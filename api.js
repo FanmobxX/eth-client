@@ -35,6 +35,7 @@ router.post('/accounts/:id', async (ctx) => {
  * @param {string} symbol - The symbol of the token, i.e: TIGA.
  */
 router.post('/artists/token', auth, async (ctx) => {
+  // const { user } = ctx.state;
   const { tokenName, tokenSymbol } = ctx.request.body;
   const contractName = tokenName.replace(/\s/g, '');
   try {
@@ -59,6 +60,7 @@ router.post('/artists/token', auth, async (ctx) => {
  * @param {Number} value Number of tokens per user to airdrop
  */
 router.post('/artists/fandrop', auth, async (ctx) => {
+  // const { user } = ctx.state;
   ctx.status = 200;
 });
 

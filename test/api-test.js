@@ -1,8 +1,9 @@
 const app = require('../app.js');
-// const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const request = require('supertest').agent(app.listen());
 
 describe('API', async () => {
+  const accessToken = jwt.sign({ id: 5 }, process.env.JWT_SECRET);
   describe('/accounts/:id', async () => {
     describe('POST', async () => {
       it('should return 200', async () => {
@@ -22,6 +23,7 @@ describe('API', async () => {
         const data = { tokenName, tokenSymbol };
         await request
           .post('/api/v1/artists/token')
+          .set('Authorization', `Bearer ${accessToken}`)
           .send(data)
           .expect(200);
       }).timeout(20000);

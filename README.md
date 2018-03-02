@@ -14,7 +14,7 @@ Response:
 }
 ```
 
-This is the access token for the API, and must be used for all subsequent calls. It is used in the auth header of each request:
+This is the access token for the API, and must be used for all subsequent calls. It is derived from the account id, so we always know the user account without having to explicity pass it in. It is used in the auth header of each request:
 
 Auth header:
 ```
@@ -42,7 +42,7 @@ Returns 200.
 Request body:
 ```
 {
-    userIds: [0xaddress1, 0xaddress3, ...], // destination addresses
+    userIds: [3, 69, ...], // destination user ids
     value: [100], // num tokens
 }
 ```
