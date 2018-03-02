@@ -20,6 +20,14 @@ const AccountSchema = new Schema({
     type: Object,
     required: true,
   },
+  tokenContractAddress: {
+    type: String,
+    required: false,
+    unique: true,
+    minlength: 40,
+    maxlength: 40,
+    trim: true,
+  },
 });
 
 module.exports = mongoose.model('Account', AccountSchema);

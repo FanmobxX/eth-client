@@ -12,6 +12,7 @@ const router = new Router({
  * POST /accounts/:id
  *
  * @param {string} id User's id on postgres server
+ * @returns {string} JSON Web Token derived from user
  */
 router.post('/accounts/:id', async (ctx) => {
   const { id } = ctx.params;
@@ -48,7 +49,7 @@ router.post('/artists/token', async (ctx) => {
  * @param {Array} userIds List of usersIds to airdrop to
  * @param {Number} value Number of tokens per user to airdrop
  */
-router.post('/artists/:id/fandrop', async (ctx) => {
+router.post('/artists/fandrop', async (ctx) => {
   ctx.status = 200;
 });
 
