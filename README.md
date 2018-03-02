@@ -5,13 +5,20 @@
 
 #### 1. Create an artist/fan:
 
-`POST /accounts/:id`
+`POST /accounts`
+
+Request body:
+```
+{
+    userId: 5 // Postgres User id
+}
+```
 
 Response:
 
 ```
 {
-    accessToken: alkdfj
+    accessToken: alkdfjghfad
 }
 ```
 

@@ -12,14 +12,14 @@ const router = new Router({ prefix: '/api/v1' });
 /**
  * Create user account.
  *
- * POST /accounts/:id
+ * POST /accounts
  *
- * @param {string} id User's id on postgres server
+ * @param {string} userId User's id on postgres server
  * @returns {string} JSON Web Token derived from account id
  */
-router.post('/accounts/:id', async (ctx) => {
-  const { id } = ctx.params;
-  const controller = new AccountController(id);
+router.post('/accounts', async (ctx) => {
+  const { userId } = ctx.request.body;
+  const controller = new AccountController(userId);
   const account = await controller.perform();
   ctx.body = {
     accessToken: jwt.sign({ id: account.id }, process.env.JWT_SECRET),
