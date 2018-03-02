@@ -1,8 +1,6 @@
 const mongoose = require('../../lib/mongoose');
 
-const { Schema } = mongoose;
-
-const AccountSchema = new Schema({
+const AccountSchema = new mongoose.Schema({
   userId: {
     type: Number,
     required: true,

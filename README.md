@@ -6,6 +6,16 @@
 
 `npm install`
 
+Setup environment variables in `.env`:
+
+```
+ETHEREUM_HTTP_PROVIDER=http://127.0.0.1:7545
+JWT_SECRET=secret
+KEYSTORE_PW=password
+MONGODB_URI=mongodb://localhost/fanmob-web3-db
+NODE_ENV=[development|production]
+```
+
 ## Running
 
 `npm run mongo`
