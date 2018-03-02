@@ -37,7 +37,7 @@ class AccountController {
 
   /**
    * Save the user's private key in Mongo DB
-   * @param  {Object} keystore Web3 keystore v3 JSOM object
+   * @param  {Object} keystore Web3 keystore v3 JSON object
    * @return {Promise} Promise with user instance
    */
   async save(keystore) {
