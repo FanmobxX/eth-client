@@ -1,4 +1,4 @@
-# web3-service
+# Fanmob Ethereum Client
 
 ## API 
 ### `/api/v1`
