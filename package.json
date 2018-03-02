@@ -15,7 +15,6 @@
   "author": "Shane Vitarana",
   "license": "Copyright (c) 2018 Fanmob",
   "dependencies": {
-    "bip39": "^2.5.0",
     "dotenv": "^5.0.0",
     "ethereumjs-wallet": "^0.6.0",
     "jsonwebtoken": "^8.1.1",

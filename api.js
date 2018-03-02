@@ -7,6 +7,20 @@ const router = new Router({
 });
 
 /**
+ * Create user account.
+ *
+ * POST /accounts/:id
+ *
+ * @param {string} id User's id on postgres server
+ */
+router.post('/accounts/:id', async (ctx) => {
+  const { id } = ctx.params;
+  const account = new AccountController(id);
+  await account.perform();
+  ctx.status = 200;
+});
+
+/**
  * Create and deploy artist token contract.
  *
  * POST /artists/token
@@ -27,23 +41,9 @@ router.post('/artists/token', async (ctx) => {
 });
 
 /**
- * Create user account.
- *
- * POST /accounts/:id
- *
- * @param {string} id User's id on postgres server
- */
-router.post('/accounts/:id', async (ctx) => {
-  const { id } = ctx.params;
-  const account = new AccountController(id);
-  await account.perform();
-  ctx.status = 200;
-});
-
-/**
  * Create fandrop
  *
- * POST /artist/{artistId}/fandrop
+ * POST /artists/{artistId}/fandrop
  *
  * @param {Array} userIds List of usersIds to airdrop to
  * @param {Number} value Number of tokens per user to airdrop
