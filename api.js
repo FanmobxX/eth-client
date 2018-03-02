@@ -38,17 +38,13 @@ router.post('/artists/token', auth, async (ctx) => {
   // const { user } = ctx.state;
   const { tokenName, tokenSymbol } = ctx.request.body;
   const contractName = tokenName.replace(/\s/g, '');
-  try {
-    const artistContract = new ArtistContract(
-      contractName,
-      tokenName,
-      tokenSymbol,
-    );
-    artistContract.deploy();
-    ctx.status = 200;
-  } catch (err) {
-    ctx.status = 500;
-  }
+  const artistContract = new ArtistContract(
+    contractName,
+    tokenName,
+    tokenSymbol,
+  );
+  artistContract.deploy();
+  ctx.status = 200;
 });
 
 /**
