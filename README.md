@@ -14,7 +14,8 @@ Authentication is based on [JSON Web Tokens](https://jwt.io).
 Request body:
 ```
 {
-    userId: 5 // Postgres User id
+  "userId": 
+    5 // Postgres User id
 }
 ```
 
@@ -22,7 +23,7 @@ Response:
 
 ```
 {
-    accessToken: alkdfjghfad
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhOWE2M2EwNjliYTVkMDAxNDM2YzUwNCIsImlhdCI6MTUyMDA2NzQ4OH0.dM30i5G2S-UpFxz-ikWx-iFFvfVPwxpJFJIO1KuRmIQ"
 }
 ```
 
