@@ -51,7 +51,7 @@ Response:
 Request body:
 ```
 {
-    userId: 6 // new Postgres User id
+    "userId": 6
 }
 ```
 
@@ -79,7 +79,7 @@ Response:
 
 #### 2. Create a coin/token for an artist:
 
-`POST /artists/token`
+##### `POST /artists/token`
 
 Request body:
 ```
@@ -93,7 +93,7 @@ Returns 200.
 
 #### 3. Create fandrop:
 
-`POST /artists/fandrop`
+##### `POST /artists/fandrop`
 
 Request body:
 ```
