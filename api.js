@@ -27,6 +27,42 @@ router.post('/accounts', async (ctx) => {
 });
 
 /**
+ * Get user account.
+ *
+ * GET /accounts
+ */
+router.get('/accounts', auth, async (ctx) => {
+  const { user } = ctx.state;
+  const controller = new AccountController(null);
+  ctx.body = await controller.find(user.id);
+});
+
+/**
+ * Update user account.
+ *
+ * PUT /accounts
+ *
+ * @param {string} userId User's id on postgres server
+ */
+router.put('/accounts', auth, async (ctx) => {
+  const { user } = ctx.state;
+  const { userId } = ctx.request.body;
+  const controller = new AccountController(userId);
+  ctx.body = await controller.update(user.id);
+});
+
+/**
+ * Create user account.
+ *
+ * DELETE /accounts
+ */
+router.delete('/accounts', auth, async (ctx) => {
+  const { user } = ctx.state;
+  const controller = new AccountController(null);
+  ctx.body = await controller.delete(user.id);
+});
+
+/**
  * Create and deploy artist token contract.
  *
  * POST /artists/token

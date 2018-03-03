@@ -36,6 +36,32 @@ class AccountController {
   }
 
   /**
+   * Update user id
+   * @return {Promise} Promise with user instance
+   */
+  async update(existingUserId) {
+    const account = await Account.findOne({ userId: existingUserId });
+    account.userId = this.userId; // new userId
+    return account.save();
+  }
+
+  /**
+   * Gets user
+   * @return {Promise} Promise with user instance
+   */
+  async find(existingUserId) {
+    return Account.findOne({ userId: existingUserId });
+  }
+
+  /**
+   * Deletes user
+   * @return {Promise} Promise with user instance
+   */
+  async delete(existingUserId) {
+    return Account.remove({ userId: existingUserId });
+  }
+
+  /**
    * Save the user's private key in Mongo DB
    * @param  {Object} keystore Web3 keystore v3 JSON object
    * @return {Promise} Promise with user instance

@@ -10,4 +10,22 @@ describe('AccountController', () => {
       account.perform().then(assert(true));
     });
   });
+
+  describe('update', () => {
+    it('should update user', () => {
+      account.update(userId).then(assert(true));
+    });
+  });
+
+  describe('delete', () => {
+    it('should delete user', () => {
+      account.delete(userId).then(assert(true));
+    });
+  });
+
+  describe('find', () => {
+    it('should find user', () => {
+      account.find(userId).then(assert(true));
+    });
+  });
 });

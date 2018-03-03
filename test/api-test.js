@@ -13,7 +13,38 @@ describe('API', async () => {
           .post('/api/v1/accounts')
           .send(data)
           .expect(200);
-      }).timeout(20000);
+      });
+    });
+
+    describe('PUT', async () => {
+      it('should return 200', async () => {
+        const data = { userId };
+        await request
+          .put('/api/v1/accounts')
+          .set('Authorization', `Bearer ${accessToken}`)
+          .send(data)
+          .expect(200);
+      });
+    });
+
+    describe('GET', async () => {
+      it('should return 200', async () => {
+        await request
+          .get('/api/v1/accounts')
+          .set('Authorization', `Bearer ${accessToken}`)
+          .expect(200);
+      });
+    });
+
+    describe('DELETE', async () => {
+      it('should return 200', async () => {
+        const data = { userId };
+        await request
+          .delete('/api/v1/accounts')
+          .set('Authorization', `Bearer ${accessToken}`)
+          .send(data)
+          .expect(200);
+      });
     });
   });
 

@@ -7,9 +7,9 @@ Authentication is based on [JSON Web Tokens](https://jwt.io).
 ## API 
 ### `/api/v1`
 
-#### 1. Create an artist/fan:
+#### 1. CRUD an artist/fan:
 
-`POST /accounts`
+##### `POST /accounts`
 
 Request body:
 ```
@@ -31,6 +31,49 @@ This is the access token for the API, and must be used for all subsequent calls.
 Auth header:
 ```
 Authorization: Bearer [accessToken]
+```
+
+##### `GET /accounts`
+
+Response:
+
+```
+{
+    userId: 5,
+    address: e8e210aa8def63624b051f6a0077c699332b1ec1,
+    keystore: { },
+}
+```
+
+##### `PUT /accounts`
+
+Request body:
+```
+{
+    userId: 6 // new Postgres User id
+}
+```
+
+Response:
+
+```
+{
+    userId: 6,
+    address: e8e210aa8def63624b051f6a0077c699332b1ec1,
+    keystore: { },
+}
+```
+
+##### `DELETE /accounts`
+
+Response:
+
+```
+{
+    userId: 5,
+    address: e8e210aa8def63624b051f6a0077c699332b1ec1,
+    keystore: { },
+}
 ```
 
 #### 2. Create a coin/token for an artist:
