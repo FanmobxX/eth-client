@@ -11,11 +11,11 @@ Authentication is based on [JSON Web Tokens](https://jwt.io).
 
 `POST /accounts`
 
-Request body:
+Request body with Postgres User.pk:
 ```
 {
   "userId": 
-    5 // Postgres User id
+    5
 }
 ```
 
