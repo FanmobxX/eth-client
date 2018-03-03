@@ -1,5 +1,5 @@
-const AccountController = require('./src/account');
-const ArtistContract = require('./src/artist');
+const AccountController = require('./src/accounts');
+const ArtistContract = require('./src/artists');
 const jwt = require('jsonwebtoken');
 const koaJwt = require('koa-jwt');
 const Router = require('koa-router');
@@ -33,8 +33,7 @@ router.post('/accounts', async (ctx) => {
  */
 router.get('/accounts', auth, async (ctx) => {
   const { user } = ctx.state;
-  const controller = new AccountController(null);
-  ctx.body = await controller.find(user.id);
+  ctx.body = await AccountController.find(user.id);
 });
 
 /**
@@ -58,8 +57,7 @@ router.put('/accounts', auth, async (ctx) => {
  */
 router.delete('/accounts', auth, async (ctx) => {
   const { user } = ctx.state;
-  const controller = new AccountController(null);
-  ctx.body = await controller.delete(user.id);
+  ctx.body = await AccountController.delete(user.id);
 });
 
 /**
@@ -80,7 +78,7 @@ router.post('/artists/token', auth, async (ctx) => {
     tokenSymbol,
     user,
   );
-  artistContract.deploy();
+  artistContract.perform();
   ctx.status = 200;
 });
 

@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const Account = require('./models/account');
+const Account = require('./src/account');
 const Web3 = require('web3');
 
 // Connect to Ethereum

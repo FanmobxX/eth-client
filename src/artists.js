@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const Account = require('./models/account');
+const Account = require('./account');
 const fs = require('fs');
 const solc = require('solc');
 const Web3 = require('web3');
@@ -14,8 +14,9 @@ class ArtistContract {
       throw new Error('A required parameter is missing');
     }
 
-    const source = ArtistContract.template(contractName, tokenName, tokenSymbol);
-    this.compiledContract = ArtistContract.compile(source, contractName);
+    this.contractName = contractName;
+    this.tokenName = tokenName;
+    this.tokenSymbol = tokenSymbol;
     this.userId = user.id;
   }
 
@@ -36,6 +37,28 @@ class ArtistContract {
         function ${contractName}() CappedToken(cap) public { }
       }
     `;
+  }
+
+  /**
+   * Save ABI in DB
+   * @param  {contract} compiledContract The solc compiled contract
+   * @return {Account} Account with ABI saved
+   */
+  async saveABI(compiledContract) {
+    const account = await Account.findOne({ userId: this.userId });
+    account.tokenContractABI = compiledContract.interface;
+    return account.save();
+  }
+
+  async perform() {
+    const source = ArtistContract.template(
+      this.contractName,
+      this.tokenName,
+      this.tokenSymbol,
+    );
+    const compiledContract = ArtistContract.compile(source, this.contractName);
+    await saveABI(compiledContract);
+    await deploy(compiledContract);
   }
 
   /**
@@ -74,13 +97,11 @@ class ArtistContract {
    * Deploys contract
    * @param {contract} compiledContract The solc compiled contract
    */
-  async deploy() {
-    const { bytecode } = this.compiledContract;
-    const abi = JSON.parse(this.compiledContract.interface);
+  async deploy(compiledContract) {
+    const { bytecode } = compiledContract;
+    const abi = JSON.parse(compiledContract.interface);
     const contract = new web3.eth.Contract(abi);
     const accounts = await web3.eth.getAccounts();
-    // console.log(accounts);
-    // console.log(bytecode);
 
     // Deploy contract
     contract
@@ -114,10 +135,19 @@ class ArtistContract {
       })
       .then(async (newContractInstance) => {
         console.log(newContractInstance.options.address);
-        const account = await Account.findOne({ userId: this.userId });
-        account.tokenContractAddress = newContractInstance.options.address;
-        await account.save();
+        await saveContractAddress(newContractInstance.options.address);
       });
+  }
+
+  /**
+   * Save artist contract address in DB
+   * @param  {contract} newContractInstance Address of the new contract
+   * @return {account} Account instance
+   */
+  async saveContractAddress(newContractInstance) {
+    const account = await Account.findOne({ userId: this.userId });
+    account.tokenContractAddress = newContractInstance;
+    return account.save();
   }
 
   /**
@@ -125,14 +155,14 @@ class ArtistContract {
   * @param  {web3.eth.Contract} contract The web3 contract
   * @return {string} The gas amount
   */
-  async estimateGas() {
+  static async estimateGas(compiledContract) {
     let estimatedGas;
-    const abi = JSON.parse(this.compiledContract.interface);
+    const abi = JSON.parse(compiledContract.interface);
     const contract = new web3.eth.Contract(abi);
 
     await contract
       .deploy({
-        data: `0x${this.compiledContract.bytecode}`,
+        data: `0x${compiledContract.bytecode}`,
         // arguments: ['hello world'],
       })
       .estimateGas((err, gas) => {

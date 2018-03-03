@@ -1,31 +1,19 @@
 const assert = require('assert');
-const AccountController = require('../src/account');
+const Account = require('../src/account');
 
-describe('AccountController', () => {
-  const userId = Math.floor(Math.random() * 100);
-  const account = new AccountController(userId);
-
-  describe('perform', () => {
-    it('should create account and save keystore', () => {
-      account.perform().then(assert(true));
-    });
-  });
-
-  describe('update', () => {
-    it('should update user', () => {
-      account.update(userId).then(assert(true));
-    });
-  });
-
-  describe('delete', () => {
-    it('should delete user', () => {
-      account.delete(userId).then(assert(true));
-    });
-  });
-
-  describe('find', () => {
-    it('should find user', () => {
-      account.find(userId).then(assert(true));
+describe('Account model', () => {
+  Account.collection.drop();
+  describe('address', () => {
+    it('should be 40 chars long', (done) => {
+      const account = new Account({
+        userId: Math.floor(Math.random() * 11),
+        address: 'adsf',
+        keystore: { empty: 'easdfads' },
+      });
+      account.validate((err) => {
+        assert(err.errors.address);
+        done();
+      });
     });
   });
 });
