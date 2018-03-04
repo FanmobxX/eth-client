@@ -1,10 +1,6 @@
 const assert = require('assert');
 const Account = require('../src/account');
 const ArtistContract = require('../src/artists');
-// const Web3 = require('web3');
-
-// Connect to Ethereum
-// const web3 = new Web3(new Web3.providers.HttpProvider(process.env.ETHEREUM_HTTP_PROVIDER));
 
 describe('ArtistContract', async () => {
   const userId = Math.floor(Math.random() * 100);
@@ -51,17 +47,17 @@ describe('ArtistContract', async () => {
     assert(account.tokenContractABI);
   }).timeout(10000);
 
-  it('should deploy the contract', async () => {
-    account = await artistContract.deploy(compiledContract);
-    console.log(account);
-    // assert(account.tokenContractAddress);
-  }).timeout(10000);
+  it('should estimate gas', async () => {
+    const gas = await ArtistContract.estimateGas(compiledContract);
+    console.log(`Estimated gas: ${gas}`);
+    assert(gas > 0);
+  });
 
-  // it('should estimate gas', async () => {
-  //   const gas = await artistContract.estimateGas();
-  //   console.log(`Estimated gas: ${gas}`);
-  //   assert(gas > 0);
-  // });
+  it('should deploy the contract', async () => {
+    const contract = await ArtistContract.deploy(compiledContract);
+    console.log(contract);
+    assert(contract.options.address);
+  }).timeout(10000);
 
   // it('should deploy artist contract', async () => {
   //   await artistContract.deploy();
