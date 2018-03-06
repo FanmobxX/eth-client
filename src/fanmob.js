@@ -26,10 +26,11 @@ class Fanmob {
 
     // get accounts
     const accounts = await web3.eth.getAccounts();
+    const to = accounts[1];
 
     // call method mint()
     return contract.methods
-      .mint(accounts[0], FANMOB_AMOUNT)
+      .mint(to, FANMOB_AMOUNT)
       .send({
         from: accounts[0],
       })

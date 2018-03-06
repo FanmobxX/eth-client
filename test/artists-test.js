@@ -58,8 +58,4 @@ describe('ArtistContract', async () => {
     console.log(contract);
     assert(contract.options.address);
   }).timeout(10000);
-
-  // it('should deploy artist contract', async () => {
-  //   await artistContract.deploy();
-  // }).timeout(20000);
 });

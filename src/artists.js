@@ -100,13 +100,12 @@ class ArtistContract {
     return contract
       .deploy({
         data: web3.utils.toHex(bytecode),
-        // arguments: ['hello world'],
       })
       .send({
         from: accounts[0],
         // gas: 937115,
         // gas: 1500000,
-        gas: 4700000,
+        gas: 6700000,
         // gas: 8000029,
         gasPrice: web3.utils.toWei('40', 'gwei'),
       });

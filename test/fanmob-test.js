@@ -19,10 +19,10 @@ describe('Fanmob', async () => {
     });
   });
 
-  // it('should mint tokens for fanmob', async () => {
-  //   const fanmob = new Fanmob(userId);
-  //   const success = await fanmob.mint(account.tokenContractAddress);
-  //   // console.log(success);
-  //   assert(success);
-  // });
+  it('should mint tokens for fanmob', async () => {
+    const fanmob = new Fanmob(userId);
+    const success = await fanmob.mint(account.tokenContractAddress);
+    console.log(success);
+    assert(success);
+  });
 });
