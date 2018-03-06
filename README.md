@@ -138,7 +138,7 @@ NODE_ENV=[development|production]
 
 Starting Parity:
 
-`parity --chain dev --unlock 0x00a329c0648769A73afAc7F9381E08FB43dBEA72 --force-ui --password $HOME/Projects/Blockchain/fanmob/web3-service/parity/pw`
+`parity --chain dev --unlock 0x00a329c0648769A73afAc7F9381E08FB43dBEA72 --force-ui --password "$HOME/../parity/pw"`
 
 ## Staging
 
