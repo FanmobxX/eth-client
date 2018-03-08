@@ -134,7 +134,16 @@ NODE_ENV=[development|production]
 ## Testing
 
 1. Start Ganache or Parity
-2. `npm test`
+2. `npm run mongo`
+3. `npm test`
+
+i.e:
+
+```sh
+$ ganache-cli
+$ npm run mongo
+$ npm test
+```
 
 Starting Parity:
 
