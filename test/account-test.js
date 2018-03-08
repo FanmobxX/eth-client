@@ -1,5 +1,5 @@
 const assert = require('assert');
-const Account = require('../src/account');
+const { Account } = require('../src/models');
 
 describe('Account model', () => {
   Account.collection.drop();

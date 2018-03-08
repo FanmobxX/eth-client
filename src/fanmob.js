@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const Account = require('./account');
+const { Account } = require('./models');
 const Web3 = require('web3');
 
 const web3 = new Web3(new Web3.providers.HttpProvider(process.env.ETHEREUM_HTTP_PROVIDER));
@@ -19,7 +19,8 @@ class Fanmob {
     this.user = await Account.findOne({ userId: this.userId });
 
     // pull abi from db
-    const abi = JSON.parse(this.user.tokenContractABI);
+    const abi = JSON.parse(this.user.tokenContract.abi);
+    // const abi = this.user.tokenContract.abi;
 
     // create web3 contract instance
     const contract = new web3.eth.Contract(abi, artistTokenAddress);

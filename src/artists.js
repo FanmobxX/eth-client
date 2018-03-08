@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const Account = require('./account');
+const { Account } = require('./models');
 const fs = require('fs');
 const solc = require('solc');
 const Web3 = require('web3');

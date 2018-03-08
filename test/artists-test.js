@@ -1,5 +1,5 @@
 const assert = require('assert');
-const Account = require('../src/account');
+const { Account } = require('../src/models');
 const ArtistContract = require('../src/artists');
 
 describe('ArtistContract', async () => {

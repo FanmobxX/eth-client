@@ -3,7 +3,9 @@ const mongoose = require('../lib/mongoose');
 const Schema = mongoose.Schema;
 
 /**
- * Artist + Fan user account
+ * Artist + Fan user account.
+ * They share one schema so a fan can switch to an artist if they want to.
+ * For a fan, the `tokenContract` will just be null.
  * @type {Schema}
  */
 const AccountSchema = new Schema({
@@ -37,7 +39,7 @@ const AccountSchema = new Schema({
 });
 
 /**
- * Token Contract
+ * Token Contract.
  * @type {Schema}
  */
 const TokenContractSchema = new Schema({
@@ -56,7 +58,10 @@ const TokenContractSchema = new Schema({
   },
 });
 
+const Account = mongoose.model('Account', AccountSchema);
+const TokenContract = mongoose.model('TokenContract', TokenContractSchema);
+
 module.exports = {
-  mongoose.model('Account', AccountSchema),
-  mongoose.model('TokenContract', TokenContractSchema),
+  Account,
+  TokenContract,
 };
