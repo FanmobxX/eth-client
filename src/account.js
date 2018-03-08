@@ -1,6 +1,12 @@
 const mongoose = require('../lib/mongoose');
 
-const AccountSchema = new mongoose.Schema({
+const Schema = mongoose.Schema;
+
+/**
+ * Artist + Fan user account
+ * @type {Schema}
+ */
+const AccountSchema = new Schema({
   userId: {
     type: Number,
     required: true,
@@ -18,7 +24,24 @@ const AccountSchema = new mongoose.Schema({
     type: Object,
     required: true,
   },
-  tokenContractAddress: {
+  tokenContract: {
+    type: Schema.Types.ObjectId,
+    ref: 'TokenContract',
+    unique: true,
+    sparse: true,
+  },
+  tokens: [{
+    type: Schema.Types.ObjectId,
+    ref: 'TokenContract',
+  }],
+});
+
+/**
+ * Token Contract
+ * @type {Schema}
+ */
+const TokenContractSchema = new Schema({
+  address: {
     type: String,
     required: false,
     unique: true,
@@ -27,10 +50,13 @@ const AccountSchema = new mongoose.Schema({
     maxlength: 40,
     trim: true,
   },
-  tokenContractABI: {
+  abi: {
     type: Object,
     required: false,
   },
 });
 
-module.exports = mongoose.model('Account', AccountSchema);
+module.exports = {
+  mongoose.model('Account', AccountSchema),
+  mongoose.model('TokenContract', TokenContractSchema),
+};

@@ -105,6 +105,20 @@ Request body:
 
 Returns 200.
 
+#### 4. Account/Wallet:
+
+##### `GET /wallets`
+
+Response:
+
+```
+{
+    userId: 5,
+    address: e8e210aa8def63624b051f6a0077c699332b1ec1,
+    keystore: { },
+}
+```
+
 ## Installation
 
 `npm install -g truffle`
