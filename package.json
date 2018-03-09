@@ -16,6 +16,7 @@
   "license": "Copyright (c) 2018 Fanmob",
   "dependencies": {
     "dotenv": "^5.0.1",
+    "eth-tx": "^0.9.7",
     "ethereumjs-wallet": "^0.6.0",
     "jsonwebtoken": "^8.2.0",
     "koa": "^2.5.0",
