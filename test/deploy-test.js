@@ -7,7 +7,7 @@ const path = require('path');
 const FANMOB_AMOUNT = '500000'; // 500,000 tokens
 
 async function deploy() {
-  const source = path.join(__dirname, '..', 'src', 'contracts', 'CappedToken.sol');
+  const source = path.join(__dirname, '..', 'contracts', 'CappedToken.sol');
   const destination = path.join(__dirname, '..', 'build', 'contracts.js');
 
   if (!fs.existsSync(path.dirname(destination))) {
