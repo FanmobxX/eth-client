@@ -1,5 +1,5 @@
 const AccountController = require('./src/accounts');
-const ArtistContract = require('./src/artists');
+const ArtistContractDeployer = require('./src/artists');
 const jwt = require('jsonwebtoken');
 const koaJwt = require('koa-jwt');
 const Router = require('koa-router');
@@ -61,25 +61,21 @@ router.delete('/accounts', auth, async (ctx) => {
 });
 
 /**
- * Create and deploy artist token contract.
+ * Create and deploy artist token contract. Saves the contract
+ * address in the DB.
  *
  * POST /artists/token
- *
- * @param {string} tokenName - The name of the token, i.e: Tiga Coin.
- * @param {string} symbol - The symbol of the token, i.e: TIGA.
  */
 router.post('/artists/token', auth, async (ctx) => {
   const { user } = ctx.state;
-  const { tokenName, tokenSymbol } = ctx.request.body;
-  const contractName = tokenName.replace(/\s/g, '');
-  const artistContract = new ArtistContract(
-    contractName,
-    tokenName,
-    tokenSymbol,
-    user,
-  );
-  artistContract.perform();
-  ctx.status = 200;
+  try {
+    const artistContract = new ArtistContractDeployer(user);
+    artistContract.perform();
+    ctx.status = 200;
+  } catch (err) {
+    ctx.status = 500;
+    ctx.body = err.message;
+  }
 });
 
 /**

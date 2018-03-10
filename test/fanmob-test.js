@@ -26,10 +26,10 @@ describe('Fanmob', async () => {
     console.log(account);
   });
 
-  it('should mint tokens for fanmob', async () => {
-    const fanmob = new Fanmob(userId);
-    const success = await fanmob.mint(account.tokenContract.address);
-    console.log(success);
-    assert(success);
-  });
+  // it('should mint tokens for fanmob', async () => {
+  //   const fanmob = new Fanmob(userId);
+  //   const success = await fanmob.mint(account.tokenContract.address);
+  //   console.log(success);
+  //   assert(success);
+  // });
 });

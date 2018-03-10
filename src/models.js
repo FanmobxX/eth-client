@@ -45,11 +45,11 @@ const AccountSchema = new Schema({
 const TokenContractSchema = new Schema({
   address: {
     type: String,
-    required: false,
+    required: true,
     unique: true,
     sparse: true,
-    minlength: 40,
-    maxlength: 40,
+    minlength: 42,
+    maxlength: 42,
     trim: true,
   },
   abi: {
