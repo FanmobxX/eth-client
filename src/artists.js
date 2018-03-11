@@ -40,6 +40,34 @@ class ArtistContractController {
   }
 
   /**
+   * Mint tokens
+   * @param {string} address Location of contract
+   * @return {Promise} The transaction receipt
+   */
+  static async mint(address) {
+    await ethTx.connect(process.env.ETHEREUM_HTTP_PROVIDER);
+
+    const WrappedContract = ethTx.wrapContract(
+      CappedToken.abi,
+      CappedToken.byteCode,
+    );
+
+    try {
+      const accounts = await ethTx.getAccounts();
+      const toAddress = accounts[0];
+      const amount = ethTx.getCurrentWeb3().utils.toWei('500000', 'ether');
+
+      const contractInstance = new WrappedContract(address);
+      return contractInstance
+        .mint(toAddress, amount)
+        .send();
+    } catch (err) {
+      console.error(err);
+      throw new Error('Error calling mint() on contract instance.');
+    }
+  }
+
+  /**
    * Initializes an `ArtistContractController`
    * @param  {Object} user User from access token
    */
@@ -57,7 +85,8 @@ class ArtistContractController {
   async perform() {
     try {
       const instance = await ArtistContractController.deploy();
-      return this.saveContractAddress(instance.$address);
+      const address = await this.saveContractAddress(instance.$address);
+      return ArtistContractController.mint(address);
     } catch (err) {
       console.error(err);
       throw new Error('Error deploying artist contract.');
@@ -73,7 +102,8 @@ class ArtistContractController {
     try {
       const account = await Account.findOne({ userId: this.userId });
       account.tokenContractAddress = address;
-      return account.save();
+      await account.save();
+      return address;
     } catch (err) {
       throw new Error('Error saving contract address');
     }
