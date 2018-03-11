@@ -2,6 +2,16 @@ const mongoose = require('../lib/mongoose');
 
 const { Schema } = mongoose;
 
+const addressSchema = {
+  type: String,
+  required: true,
+  unique: true,
+  sparse: true,
+  minlength: 42,
+  maxlength: 42,
+  trim: true,
+};
+
 /**
  * Artist + Fan user account.
  * They share one schema so a fan can switch to an artist if they want to.
@@ -43,19 +53,7 @@ const AccountSchema = new Schema({
  * @type {Schema}
  */
 const TokenContractSchema = new Schema({
-  address: {
-    type: String,
-    required: true,
-    unique: true,
-    sparse: true,
-    minlength: 42,
-    maxlength: 42,
-    trim: true,
-  },
-  abi: {
-    type: Object,
-    required: false,
-  },
+  address: addressSchema,
 });
 
 const Account = mongoose.model('Account', AccountSchema);
