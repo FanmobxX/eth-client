@@ -36,6 +36,7 @@ const accountSchema = new Schema({
   tokens: [address],
 });
 
+// TODO: not working, directly access keystore for now
 // adds `address` property (alias for `keystore.address`)
 accountSchema.virtual('address').get(() => `0x${this.keystore.address}`);
 

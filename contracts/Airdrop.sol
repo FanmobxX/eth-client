@@ -17,17 +17,17 @@ limitations under the License.
 pragma solidity ^0.4.18;
 
 import "./Ownable.sol";
-import "./ERC20Basic.sol";
+import "./CappedToken.sol";
 
 contract Airdrop is Ownable {
   function multisend(
     address tokenAddr, 
     address[] dests, 
-    uint256[] values) public onlyOwner returns (uint256) {
+    uint256 value) public onlyOwner returns (uint256) {
 
       uint256 i = 0;
       while (i < dests.length) {
-        ERC20Basic(tokenAddr).transfer(dests[i], values[i]);
+        CappedToken(tokenAddr).mint(dests[i], value);
         i += 1;
       }
       return(i);
