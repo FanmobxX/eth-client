@@ -43,7 +43,6 @@ describe('ArtistContract', async () => {
 
   it('should perform operation', async () => {
     const a = await controller.perform();
-    console.log(a);
     assert(a);
   }).timeout(100000);
 });

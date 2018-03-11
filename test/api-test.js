@@ -51,13 +51,9 @@ describe('API', async () => {
   describe('/artists/token', async () => {
     describe('POST', async () => {
       it('should return 200', async () => {
-        const tokenName = 'Tiga Coin';
-        const tokenSymbol = 'TIGA';
-        const data = { tokenName, tokenSymbol };
         await request
           .post('/api/v1/artists/token')
           .set('Authorization', `Bearer ${accessToken}`)
-          .send(data)
           .expect(200);
       }).timeout(20000);
     });
