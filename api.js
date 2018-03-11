@@ -64,13 +64,15 @@ router.delete('/accounts', auth, async (ctx) => {
  * Create and deploy artist token contract. Saves the contract
  * address in the DB.
  *
+ * WARNING: This is a long-running task.
+ * Clients shouldn't wait for a response.
+ *
  * POST /artists/token
  */
 router.post('/artists/token', auth, async (ctx) => {
   const { user } = ctx.state;
   const artistContract = new ArtistContractController(user);
   ctx.body = await artistContract.perform();
-  // ctx.status = 200;
 });
 
 /**
