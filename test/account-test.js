@@ -2,18 +2,17 @@ const assert = require('assert');
 const { Account } = require('../src/models');
 
 describe('Account model', () => {
-  Account.collection.drop();
-  describe('address', () => {
-    it('should be 40 chars long', (done) => {
-      const account = new Account({
+  before(async () => {
+    await Account.remove({});
+  });
+
+  it('should not create account without private key', async () => {
+    try {
+      await Account.create({
         userId: Math.floor(Math.random() * 11),
-        address: 'adsf',
-        keystore: { empty: 'easdfads' },
       });
-      account.validate((err) => {
-        assert(err.errors.address);
-        done();
-      });
-    });
+    } catch (err) {
+      assert(err.errors.keystore);
+    }
   });
 });

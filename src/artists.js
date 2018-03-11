@@ -4,7 +4,7 @@ const ethTx = require('eth-tx');
 const fs = require('fs');
 const path = require('path');
 
-const { Account, TokenContract } = require('./models');
+const { Account } = require('./models');
 const { CappedToken } = require('../build/contracts');
 
 class ArtistContractController {
@@ -39,7 +39,7 @@ class ArtistContractController {
     return WrappedContract.new(amount);
   }
 
-  constructor(user) {
+  constructor(user = null) {
     if (user == null) {
       throw new Error('A required parameter is missing');
     }
@@ -57,26 +57,18 @@ class ArtistContractController {
   }
 
   /**
-   * Save ABI in DB
-   * @param  {contract} compiledContract The solc compiled contract
-   * @return {Account} Account with ABI saved
-   */
-  // async saveABI(compiledContract) {
-  //   const account = await Account.findOne({ userId: this.userId });
-  //   account.tokenContractABI = compiledContract.interface;
-  //   return account.save();
-  // }
-
-  /**
    * Save artist contract address in DB
    * @param  {string} address Address of the new contract
    * @return {account} Account instance
    */
   async saveContractAddress(address) {
-    const account = await Account.findOne({ userId: this.userId });
-    const tokenContract = await TokenContract.create({ address });
-    account.tokenContract = tokenContract;
-    return account.save();
+    try {
+      const account = await Account.findOne({ userId: this.userId });
+      account.tokenContractAddress = address;
+      return account.save();
+    } catch (err) {
+      throw new Error('Error saving contract address');
+    }
   }
 }
 

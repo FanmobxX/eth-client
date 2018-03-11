@@ -69,7 +69,6 @@ class AccountController {
   async save(keystore) {
     return Account.create({
       userId: this.userId,
-      address: keystore.address,
       keystore,
     });
   }

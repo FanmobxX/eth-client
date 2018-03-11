@@ -2,9 +2,13 @@ const mongoose = require('../lib/mongoose');
 
 const { Schema } = mongoose;
 
-const addressSchema = {
+/**
+ * Represents an Ethereum address prefixed with 0x.
+ * 40 hex chars (160 bits / 20 bytes)
+ * @type {Object}
+ */
+const address = {
   type: String,
-  required: true,
   unique: true,
   sparse: true,
   minlength: 42,
@@ -18,48 +22,25 @@ const addressSchema = {
  * For a fan, the `tokenContract` will just be null.
  * @type {Schema}
  */
-const AccountSchema = new Schema({
+const accountSchema = new Schema({
   userId: {
     type: Number,
     required: true,
     unique: true,
   },
-  address: {
-    type: String,
-    required: true,
-    unique: true,
-    minlength: 40,
-    maxlength: 40,
-    trim: true,
-  },
   keystore: {
     type: Object,
     required: true,
   },
-  tokenContract: {
-    type: Schema.Types.ObjectId,
-    ref: 'TokenContract',
-    unique: true,
-    sparse: true,
-  },
-  tokens: [{
-    type: Schema.Types.ObjectId,
-    ref: 'TokenContract',
-  }],
+  tokenContractAddress: address,
+  tokens: [address],
 });
 
-/**
- * Token Contract.
- * @type {Schema}
- */
-const TokenContractSchema = new Schema({
-  address: addressSchema,
-});
+// adds `address` property (alias for `keystore.address`)
+accountSchema.virtual('address').get(() => `0x${this.keystore.address}`);
 
-const Account = mongoose.model('Account', AccountSchema);
-const TokenContract = mongoose.model('TokenContract', TokenContractSchema);
+const Account = mongoose.model('Account', accountSchema);
 
 module.exports = {
   Account,
-  TokenContract,
 };

@@ -2,9 +2,16 @@ const app = require('../app.js');
 const jwt = require('jsonwebtoken');
 const request = require('supertest').agent(app.listen());
 
+const { Account } = require('../src/models');
+
 describe('API', async () => {
   const userId = Math.floor(Math.random() * 100);
   const accessToken = jwt.sign({ id: userId }, process.env.JWT_SECRET);
+
+  before(async () => {
+    await Account.remove({});
+  });
+
   describe('/accounts', async () => {
     describe('POST', async () => {
       it('should return 200', async () => {
@@ -50,11 +57,11 @@ describe('API', async () => {
 
   describe('/artists/token', async () => {
     describe('POST', async () => {
-      it('should return 200', async () => {
+      it('should return 500', async () => {
         await request
           .post('/api/v1/artists/token')
           .set('Authorization', `Bearer ${accessToken}`)
-          .expect(200);
+          .expect(500);
       }).timeout(20000);
     });
   });
