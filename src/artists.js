@@ -39,6 +39,10 @@ class ArtistContractController {
     return WrappedContract.new(amount);
   }
 
+  /**
+   * Initializes an `ArtistContractController`
+   * @param  {Object} user User from access token
+   */
   constructor(user = null) {
     if (user == null) {
       throw new Error('A required parameter is missing');
@@ -46,6 +50,10 @@ class ArtistContractController {
     this.userId = user.id;
   }
 
+  /**
+   * Deploys a contract and saves the address in the DB
+   * @return {Account} Account instance of updated user
+   */
   async perform() {
     try {
       const instance = await ArtistContractController.deploy();
