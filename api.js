@@ -68,14 +68,9 @@ router.delete('/accounts', auth, async (ctx) => {
  */
 router.post('/artists/token', auth, async (ctx) => {
   const { user } = ctx.state;
-  try {
-    const artistContract = new ArtistContractDeployer(user);
-    artistContract.perform();
-    ctx.status = 200;
-  } catch (err) {
-    ctx.status = 500;
-    ctx.body = err.message;
-  }
+  const artistContract = new ArtistContractDeployer(user);
+  artistContract.perform();
+  ctx.status = 200;
 });
 
 /**
