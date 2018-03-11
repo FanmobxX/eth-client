@@ -36,9 +36,14 @@ const accountSchema = new Schema({
   tokens: [address],
 });
 
-// TODO: not working, directly access keystore for now
 // adds `address` property (alias for `keystore.address`)
-accountSchema.virtual('address').get(() => `0x${this.keystore.address}`);
+accountSchema.virtual('address').get(function () {
+  return `0x${this.keystore.address}`;
+});
+
+accountSchema.statics.findAllArtists = function () {
+  return this.find({ tokenContractAddress: { $exists: true } });
+};
 
 const Account = mongoose.model('Account', accountSchema);
 
