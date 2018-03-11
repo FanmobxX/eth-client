@@ -1,6 +1,6 @@
 const mongoose = require('../lib/mongoose');
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 /**
  * Artist + Fan user account.

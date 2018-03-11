@@ -7,7 +7,7 @@ const path = require('path');
 const { Account, TokenContract } = require('./models');
 const { CappedToken } = require('../build/contracts');
 
-class ArtistContractDeployer {
+class ArtistContractController {
   /**
    * Compiles artist contract to ./build folder.
    * @return {Object} abi and byteCode
@@ -48,7 +48,7 @@ class ArtistContractDeployer {
 
   async perform() {
     try {
-      const instance = await ArtistContractDeployer.deploy();
+      const instance = await ArtistContractController.deploy();
       return this.saveContractAddress(instance.$address);
     } catch (err) {
       console.error(err);
@@ -80,4 +80,4 @@ class ArtistContractDeployer {
   }
 }
 
-module.exports = ArtistContractDeployer;
+module.exports = ArtistContractController;
