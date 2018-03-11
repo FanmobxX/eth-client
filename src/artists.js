@@ -5,13 +5,14 @@ const fs = require('fs');
 const path = require('path');
 
 const { Account, TokenContract } = require('./models');
+const { CappedToken } = require('../build/contracts');
 
 class ArtistContractDeployer {
   /**
-   * Deploys contract
-   * @param {Contract} New Contract instance
+   * Compiles artist contract to ./build folder.
+   * @return {Object} abi and byteCode
    */
-  static async deploy() {
+  static async compile() {
     const source = path.join(__dirname, '..', 'contracts', 'CappedToken.sol');
     const destination = path.join(__dirname, '..', 'build', 'contracts.js');
 
@@ -19,18 +20,23 @@ class ArtistContractDeployer {
       fs.mkdirSync(path.dirname(destination));
     }
 
-    await ethTx.compileTo(source, destination, {});
+    return ethTx.compileTo(source, destination, {});
+  }
+
+  /**
+   * Deploys contract
+   * @param {Contract} New Contract instance
+   */
+  static async deploy() {
     await ethTx.connect(process.env.ETHEREUM_HTTP_PROVIDER);
 
-    // eslint-disable-next-line global-require
-    const { CappedToken } = require('../build/contracts');
-    const TokenContract = ethTx.wrapContract(
+    const WrappedContract = ethTx.wrapContract(
       CappedToken.abi,
       CappedToken.byteCode,
     );
 
     const amount = ethTx.getCurrentWeb3().utils.toWei('500000', 'ether');
-    return TokenContract.new(amount);
+    return WrappedContract.new(amount);
   }
 
   constructor(user) {
