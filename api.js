@@ -1,8 +1,9 @@
-const AccountController = require('./src/accounts');
-const ArtistContractController = require('./src/artists');
 const jwt = require('jsonwebtoken');
 const koaJwt = require('koa-jwt');
 const Router = require('koa-router');
+const AccountController = require('./src/accounts');
+const ArtistContractController = require('./src/artists');
+const Wallet = require('./src/wallets');
 
 // middleware to validate JWT token
 const auth = koaJwt({ secret: process.env.JWT_SECRET });
@@ -86,6 +87,19 @@ router.post('/artists/token', auth, async (ctx) => {
 router.post('/artists/fandrop', auth, async (ctx) => {
   // const { user } = ctx.state;
   ctx.status = 200;
+});
+
+/**
+ * Get user's wallet.
+ *
+ * GET /wallets
+ *
+ * @returns {Object} [{ userId: 5, balance: 100 }, ...]
+ */
+router.get('/wallets', auth, async (ctx) => {
+  const { user } = ctx.state;
+  const wallet = new Wallet(user);
+  ctx.body = await wallet.getBalances();
 });
 
 module.exports = router;

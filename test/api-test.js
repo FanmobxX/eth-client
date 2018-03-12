@@ -65,4 +65,15 @@ describe('API', async () => {
       }).timeout(20000);
     });
   });
+
+  describe('/wallets', async () => {
+    describe('GET', async () => {
+      it('should return 200', async () => {
+        await request
+          .get('/api/v1/wallets')
+          .set('Authorization', `Bearer ${accessToken}`)
+          .expect(200);
+      }).timeout(20000);
+    });
+  });
 });
