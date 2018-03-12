@@ -112,11 +112,10 @@ Returns 200.
 Response:
 
 ```
-{
-    userId: 5,
-    address: e8e210aa8def63624b051f6a0077c699332b1ec1,
-    keystore: { },
-}
+[{ 
+    token: 0x...,   // artist token contract address
+    balance: 100,   // user's balance for that token
+}, ...]
 ```
 
 ## Installation
