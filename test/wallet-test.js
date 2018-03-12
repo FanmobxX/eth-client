@@ -30,7 +30,7 @@ describe('WalletController', () => {
 
   it('should have 0 balance', async () => {
     const balances = await wallet.getBalances();
-    assert(balances[0].token);
+    assert(balances[0].userId);
     assert.equal(balances[0].balance, 0);
   }).timeout(10000);
 

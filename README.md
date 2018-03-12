@@ -113,8 +113,8 @@ Response:
 
 ```
 [{ 
-    token: 0x...,   // artist token contract address
-    balance: 100,   // user's balance for that token
+    userId: 5,      // artist userId
+    balance: 100,   // user's balance for above artist's token
 }, ...]
 ```
 

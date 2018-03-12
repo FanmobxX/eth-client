@@ -18,7 +18,7 @@ class Wallet {
 
   /**
    * Gets token balances for user
-   * @return {Object} [{ token: 0x.., balance: 100 }, ...]
+   * @return {Object} [{ userId: 5, balance: 100 }, ...]
    */
   async getBalances() {
     const user = await Account.findOne({ userId: this.userId });
@@ -36,7 +36,7 @@ class Wallet {
         const balance = await contractInstance
           .balanceOf(user.address)
           .call();
-        return { token: artist.tokenContractAddress, balance };
+        return { userId: artist.userId, balance };
       });
       return Promise.all(promises);
     } catch (err) {
