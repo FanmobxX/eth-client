@@ -168,7 +168,7 @@ https://fanmob-web3-staging.herokuapp.com/
 
 ### Parity Testnet (Kovan)
 
-http://198.199.66.129:8180
+http://165.227.87.31:8180/
 
 Start Parity via Docker:
 
