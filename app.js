@@ -16,15 +16,19 @@ const app = new Koa();
 app.use(bodyParser());
 
 // defaut error handler
-app.use(async (ctx, next) => {
-  try {
-    await next();
-  } catch (err) {
-    ctx.status = err.status || 500;
-    ctx.body = err.message;
-    ctx.app.emit('error', err, ctx);
-  }
-});
+
+app.use(rollbar.errorHandler(process.env.ROLLBAR_TOKEN));
+
+// commenting out for Rollbar
+// app.use(async (ctx, next) => {
+//   try {
+//     await next();
+//   } catch (err) {
+//     ctx.status = err.status || 500;
+//     ctx.body = err.message;
+//     ctx.app.emit('error', err, ctx);
+//   }
+// });
 
 // middleware to output HTTP method and time
 // app.use(async (ctx, next) => {
