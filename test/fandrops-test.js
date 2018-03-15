@@ -28,14 +28,16 @@ describe('AirdropController', () => {
     console.log(`Deployed airdrop contract to: ${deployedAddress}`);
   }).timeout(100000);
 
-  it('should do airdrop', async () => {
-    const destAddresses = [accounts[1], accounts[2]];
-    const tx = await AirdropController
-      .airdrop(
-        deployedAddress,
-        deployedTokenAddress,
-        destAddresses,
-      );
-    assert(tx.transactionHash);
-  });
+  // it('should do airdrop', async () => {
+  //   const destAddresses = [accounts[1], accounts[2]];
+  //   const tx = await AirdropController
+  //     .airdrop(
+  //       deployedAddress,
+  //       deployedTokenAddress,
+  //       destAddresses,
+  //     );
+  //   assert(tx.transactionHash);
+  // });
+
+  
 });
