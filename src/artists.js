@@ -1,5 +1,12 @@
 require('dotenv').config();
 
+var Rollbar = require('rollbar');
+var rollbar = new Rollbar({
+  accessToken: process.env.ROLLBAR_TOKEN,
+  captureUncaught: true,
+  captureUnhandledRejections: true
+});
+
 const ethTx = require('eth-tx');
 const fs = require('fs');
 const path = require('path');
