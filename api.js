@@ -10,7 +10,7 @@ const auth = koaJwt({ secret: process.env.JWT_SECRET });
 
 const router = new Router({ prefix: '/api/v1' });
 
-router.get('/', auth, async (ctx) => {
+router.get('/', async (ctx) => {
   ctx.status = 200;
 });
 
