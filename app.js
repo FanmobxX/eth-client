@@ -1,3 +1,10 @@
+var Rollbar = require('rollbar');
+var rollbar = new Rollbar({
+  accessToken: process.env.ROLLBAR_TOKEN,
+  captureUncaught: true,
+  captureUnhandledRejections: true
+});
+
 require('dotenv').config();
 
 const bodyParser = require('koa-bodyparser');
