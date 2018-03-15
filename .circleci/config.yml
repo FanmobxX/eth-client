@@ -12,11 +12,11 @@ jobs:
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
-      - image: circleci/mongo:3.4.4
+      - image: circleci/mongo:3.5.6
 
     environment:
       - MONGODB_URI: "mongodb://localhost:27017/data"
-  
+
     working_directory: ~/repo
 
     steps:
@@ -29,6 +29,11 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
+      # Database setup
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:27017 -timeout 1m
+          
       - run: npm install
 
       - save_cache:
