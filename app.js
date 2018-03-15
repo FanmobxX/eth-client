@@ -17,7 +17,7 @@ app.use(bodyParser());
 
 // defaut error handler
 
-app.use(rollbar.errorHandler(process.env.ROLLBAR_TOKEN));
+
 
 app.use(async (ctx, next) => {
   try {
@@ -28,6 +28,8 @@ app.use(async (ctx, next) => {
     ctx.app.emit('error', err, ctx);
   }
 });
+
+app.use(rollbar.errorHandler(process.env.ROLLBAR_TOKEN));
 
 // middleware to output HTTP method and time
 // app.use(async (ctx, next) => {
