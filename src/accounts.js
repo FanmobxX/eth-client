@@ -70,6 +70,7 @@ class AccountController {
     return Account.create({
       userId: this.userId,
       keystore,
+      tokens: null,
     });
   }
 

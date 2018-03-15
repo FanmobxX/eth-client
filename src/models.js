@@ -9,7 +9,6 @@ const { Schema } = mongoose;
  */
 const address = {
   type: String,
-  unique: true,
   sparse: true,
   minlength: 42,
   maxlength: 42,
