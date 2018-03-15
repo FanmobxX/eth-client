@@ -1,9 +1,11 @@
-var Rollbar = require('rollbar');
-var rollbar = new Rollbar({
-  accessToken: process.env.ROLLBAR_TOKEN,
-  captureUncaught: true,
-  captureUnhandledRejections: true
-});
+var rollbar = require('rollbar');
+// var rollbar = new Rollbar({
+//   accessToken: process.env.ROLLBAR_TOKEN,
+//   captureUncaught: true,
+//   captureUnhandledRejections: true
+// });
+
+rollbar.init(process.env.ROLLBAR_TOKEN);
 
 require('dotenv').config();
 
@@ -29,7 +31,7 @@ app.use(async (ctx, next) => {
   }
 });
 
-app.use(rollbar.errorHandler(process.env.ROLLBAR_TOKEN));
+
 
 // middleware to output HTTP method and time
 // app.use(async (ctx, next) => {
