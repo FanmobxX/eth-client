@@ -22,6 +22,8 @@ describe('ArtistContract', () => {
 
   it('should deploy the contract', async () => {
     instance = await ArtistContractController.deploy();
+    console.log(instance);
+
     assert(instance.$address);
     deployedAddress = instance.$address;
   }).timeout(100000);
@@ -35,13 +37,13 @@ describe('ArtistContract', () => {
     assert.equal(address, CONTRACT_ADDRESS);
   });
 
-  it('should perform operation', async () => {
-    const transactionReceipt = await controller.perform();
-    assert(transactionReceipt.transactionHash);
-  }).timeout(100000);
+  // it('should perform operation', async () => {
+  //   const transactionReceipt = await controller.perform();
+  //   assert(transactionReceipt.transactionHash);
+  // }).timeout(100000);
 
-  it('should mint tokens', async () => {
-    const transactionReceipt = await ArtistContractController.mint(deployedAddress);
-    assert(transactionReceipt.transactionHash);
-  });
+  // it('should mint tokens', async () => {
+  //   const transactionReceipt = await ArtistContractController.mint(deployedAddress);
+  //   assert(transactionReceipt.transactionHash);
+  // });
 });
