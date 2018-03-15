@@ -1,11 +1,11 @@
-var rollbar = require('rollbar');
-// var rollbar = new Rollbar({
-//   accessToken: process.env.ROLLBAR_TOKEN,
-//   captureUncaught: true,
-//   captureUnhandledRejections: true
-// });
+var Rollbar = require('rollbar');
+var rollbar = new Rollbar({
+  accessToken: process.env.ROLLBAR_TOKEN,
+  captureUncaught: true,
+  captureUnhandledRejections: true
+});
 
-rollbar.init(process.env.ROLLBAR_TOKEN);
+//rollbar.init(process.env.ROLLBAR_TOKEN);
 
 require('dotenv').config();
 
@@ -27,6 +27,7 @@ app.use(async (ctx, next) => {
   } catch (err) {
     ctx.status = err.status || 500;
     ctx.body = err.message;
+    rollbar.handleError(ctx.body);
     ctx.app.emit('error', err, ctx);
   }
 });
