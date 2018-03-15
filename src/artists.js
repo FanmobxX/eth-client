@@ -62,6 +62,7 @@ class ArtistContractController {
         .mint(toAddress, amount)
         .send();
     } catch (err) {
+      rollbar.handleError(err);
       console.error(err);
       throw new Error('Error calling mint() on contract instance.');
     }
@@ -88,6 +89,7 @@ class ArtistContractController {
       const address = await this.saveContractAddress(instance.$address);
       return ArtistContractController.mint(address);
     } catch (err) {
+      rollbar.handleError(err);
       console.error(err);
       throw new Error('Error deploying artist contract.');
     }
@@ -105,6 +107,7 @@ class ArtistContractController {
       await account.save();
       return address;
     } catch (err) {
+      rollbar.handleError(err);
       throw new Error('Error saving contract address');
     }
   }
