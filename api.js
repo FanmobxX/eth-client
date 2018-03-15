@@ -10,6 +10,10 @@ const auth = koaJwt({ secret: process.env.JWT_SECRET });
 
 const router = new Router({ prefix: '/api/v1' });
 
+router.get('/', auth, async (ctx) => {
+  ctx.status = 200;
+});
+
 /**
  * Create user account.
  *
