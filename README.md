@@ -160,15 +160,11 @@ $ npm test
 
 Starting Parity:
 
-`parity --chain dev --unlock 0x00a329c0648769A73afAc7F9381E08FB43dBEA72 --force-ui --password "$HOME/../parity/pw"`
+`parity --chain dev --unlock [ADDRESS] --force-ui --password "$HOME/../parity/pw"`
 
 ## Staging
 
-https://fanmob-web3-staging.herokuapp.com/
-
 ### Parity Testnet (Kovan)
-
-http://165.227.87.31:8180/
 
 Start Parity via Docker:
 
